@@ -1,0 +1,4 @@
+#Executable files
+*.out
+#Editing files
+*.swp
