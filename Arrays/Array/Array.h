@@ -16,15 +16,15 @@ int destroyArray(int * array){
 int resizeArray(int * array, int arraySize, int newSize){
 	if(newSize<0||arraySize<0) return UNDERFLOW_VALUE;
 	int ErrorCode;
-	int * arrayRecobery;
-	ErrorCode = initArray(arrayRecobery, arraySize);
+	int * arrayRecovery;
+	ErrorCode = initArray(arrayRecovery, arraySize);
 	if(ErrorCode>0) return ErrorCode;
-	ErrorCode = cloneArray( array, arrayRecobery, arraySize);
+	ErrorCode = cloneArray( array, arrayRecovery, arraySize);
 	if(ErrorCode>0) return ErrorCode;
-	array = (int*) realloc(sizeof(int)*newSize);
+	array = (int*) realloc(array,sizeof(int)*newSize);
 	if(array == NULL){
 		array = (int*) malloc(sizeof(int)*newSize);
-		ErrorCode = cloneArray(arrayRecobery, array, arraySize);
+		ErrorCode = cloneArray(arrayRecovery, array, arraySize);
 		if(ErrorCode>0) return ErrorCode;
 	}
 	free(arrayRecovery);
@@ -32,6 +32,6 @@ int resizeArray(int * array, int arraySize, int newSize){
 }
 int cloneArray(int * originalArray, int * cloneArray, int arraySize){
 	if(arraySize<0) return UNDERFLOW_VALUE;
-	for(int i = 0; i < arraySize; i++) cloneArray[i] = originalArrayData[i];
+	for(int i = 0; i < arraySize; i++) cloneArray[i] = originalArray[i];
 	return 0;
 }

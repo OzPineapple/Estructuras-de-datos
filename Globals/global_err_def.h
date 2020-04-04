@@ -2,7 +2,7 @@
 
 //User errors
 #define NULL_VALUE 400
-#define UNERFLOW_VALUE 401
+#define UNDERFLOW_VALUE 401
 #define OVERFLOW_VALUE 402
 
 //System errors
