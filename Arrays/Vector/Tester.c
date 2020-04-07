@@ -4,11 +4,12 @@
 
 int main(int argc, char * argv[]){
 	printf("Vector tester\nBy Oz Pineapple\n");
-	struct Vector vector;
-	int GLOBAL_ERROR_CODE = initVector(&vector,20);
-	if(GLOBAL_ERROR_CODE>0){
-		printf("%s",getGlobalError());
-		return GLOBAL_ERROR_CODE;
-	}		
+	Vector vector;
+	GLOBAL_ERROR_CODE = initVector(&vector,20);
+	if(GLOBAL_ERROR_CODE>0) return printGlobalError();
 	printf("Vector inited\n");
+	char * vectorPhotography;
+	GLOBAL_ERROR_CODE = seeVector( &vector, vectorPhotography );
+	if(GLOBAL_ERROR_CODE>0) return printGlobalError();
+	printf("Vector:%s", vectorPhotography );
 }

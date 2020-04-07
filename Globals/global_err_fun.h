@@ -3,7 +3,7 @@
 
 int GLOBAL_ERROR_CODE;
 
-char* getError(int ErrorCode){
+char * getError(int ErrorCode){
 	switch(ErrorCode){
 		case 400:
 			return "Recived NULL where value was expected";
@@ -20,7 +20,12 @@ char* getError(int ErrorCode){
 	}	
 }
 
-char* getGlobalError(){
+char * getGlobalError(){
 	return getError(GLOBAL_ERROR_CODE);
+}
+
+int printGlobalError(){
+	printf("ERROR %i: %s", GLOBAL_ERROR_CODE, getError(GLOBAL_ERROR_CODE));
+	return GLOBAL_ERROR_CODE;
 }
 
