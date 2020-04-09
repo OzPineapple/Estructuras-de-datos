@@ -16,18 +16,32 @@ int destroyArray(int * array){
 	return 0;
 }
 
-int seeArray(int * array, char * arrayPhotography, int size){
+int seeArray(int * array, int size, char** arrayPhotography, int* arrayPhotographySize){
+	int ERROR = 0;
+	int dataSize = 0;
+	char* data = 0x0;
+	*arrayPhotographySize = 0;
+
 	for(int i = 0; i < size; i++){
-		int num = array[i];
-		char * strNum;
-		integerToString(num, strNum);
-		arrayPhotography = (char *) realloc( arrayPhotography, sizeof(arrayPhotography) + sizeof("[]") + sizeof(strNum));
-		if(arrayPhotography == NULL) return RESERVE_MEMORY_FAIL; 
-		strcat(arrayPhotography, "[");
-		strcat(arrayPhotography, strNum);
-		strcat(arrayPhotography, "]");
-		free(strNum);
+		ERROR = integerToString(*(array+i), &data, &dataSize);
+		if(ERROR) return ERROR;
+
+		*arrayPhotographySize += sizeof(char) * ( 2 + dataSize ); 
+		
+		if(arrayPhotography == 0x0 ){
+			*arrayPhotography = (char *) malloc(*arrayPhotographySize);
+			if(*arrayPhotography == 0x0) return RESERVE_MEMORY_FAIL; 	
+		}else{
+			*arrayPhotography = (char *) realloc(*arrayPhotography, *arrayPhotographySize);
+			if(*arrayPhotography == 0x0) return RESERVE_MEMORY_FAIL; 	
+		}
+
+		strcat(*arrayPhotography, "[");
+		strcat(*arrayPhotography, data);
+		strcat(*arrayPhotography, "]");
 	}
+
+	free(data);
 	return 0;
 }
 

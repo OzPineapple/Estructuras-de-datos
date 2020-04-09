@@ -37,19 +37,29 @@ int resizeVector(Vector * vector, int newSize, int size){
 	return 0;
 }
 //Get a string with a visual inforamtion of the vector
-int seeVector(Vector * vector, char * vectorPhotography){
-	char * vectorStrSize;
-	int ErrorCode = integerToString(vector->size, vectorStrSize);
-	if(ErrorCode>0) return ErrorCode;
-	char * arrayPhotography;
-	ErrorCode = seeArray(vector->array, &arrayPhotography, vector->size);
-	if(ErrorCode>0) return ErrorCode;
-	vectorPhotography = (char *) malloc(sizeof("{\nSize:,\nArray:,\n}") + sizeof(arrayPhotography) + sizeof(vectorStrSize));
-	strcat(vectorPhotography, "\nSize:");		
-	strcat(vectorPhotography, vectorStrSize);		
-	strcat(vectorPhotography, ",\nArray:");		
-	strcat(vectorPhotography, arrayPhotography);		
-	strcat(vectorPhotography, ",\n}");		
+int seeVector(Vector * vector, char ** vectorPhotography){
+	int vectorSizeStrSize = 0;
+	char * vectorSizeStr = 0x0;
+	
+	int ERROR = integerToString(vector->size, &vectorSizeStr, &vectorSizeStrSize);
+	if(ERROR>0) return ERROR;
+
+	int arrayPhotographySize;
+	char * arrayPhotography = 0x0;
+
+	ERROR = seeArray(vector->array, vector->size, &arrayPhotography, &arrayPhotographySize);
+	if(ERROR>0) return ERROR;
+
+	free(*vectorPhotography); *vectorPhotography = 0x0;
+	*vectorPhotography = (char *) malloc(sizeof("{\n\tSize:,\n\tArray:,\n}") + sizeof(arrayPhotographySize) + sizeof(vectorSizeStrSize));
+	if(*vectorPhotography == 0x0) return RESERVE_MEMORY_FAIL;
+
+	strcat(*vectorPhotography, "{\n\tSize:");		
+	strcat(*vectorPhotography, vectorSizeStr);		
+	strcat(*vectorPhotography, ",\n\tArray:");		
+	strcat(*vectorPhotography, arrayPhotography);		
+	strcat(*vectorPhotography, ",\n}");		
+
 	return 0;
 }
 
