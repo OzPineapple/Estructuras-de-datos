@@ -3,16 +3,11 @@
 #include <string.h>
 #include "../../lib/util.h"
 
+//Create & destroy
 int initArray(int** array, int size){
-	if(size<1){
-		fprintf(stderr, "The array\'s size most be minimun one");
-		exit(EXIT_FAILURE);
-	}
+	validateNegative(size);
 	*array = (int*) calloc(size, sizeof(int));
-	if(*array == NULL){
-		fprintf(stderr, "Couldn\'t reserve memory for array");
-		exit(EXIT_FAILURE);
-	}
+	validatePointer(*array);
 	return 0;
 }
 
@@ -21,7 +16,10 @@ int destroyArray(int** array){
 	return 0;
 }
 
+//Lookers
 int seeArray(int* array, int size, char** arrayPhotography, int* arrayPhotographySize){
+	validateNegative(size);
+
 	int dataSize = 0;
 	char* data = 0x0;
 
@@ -33,10 +31,7 @@ int seeArray(int* array, int size, char** arrayPhotography, int* arrayPhotograph
 
 		*arrayPhotographySize += sizeof(char) * ( 2 + dataSize ); 		
 		*arrayPhotography = (char *) realloc(*arrayPhotography,sizeof(char)*(*arrayPhotographySize));
-		if(*arrayPhotography == 0x0){
-			fprintf(stderr,"Not enoug memory for array\'s photography");
-		       	exit(EXIT_FAILURE);
-		}
+		validatePointer(*arrayPhotography);
 
 		strcat(*arrayPhotography, "[");
 		strcat(*arrayPhotography, data);
@@ -54,37 +49,47 @@ int seeArray(int* array, int size, char** arrayPhotography, int* arrayPhotograph
 int printArray(int* array, int size){
 	int arrayPhotographySize = 0;
 	char* arrayPhotography = 0x0;
-	if(seeArray(array, size, &arrayPhotography, &arrayPhotographySize)){
-		fprintf(stderr, "Fuction printArray");
-		exit(EXIT_FAILURE);
-	}
+	seeArray(array, size, &arrayPhotography, &arrayPhotographySize);
 	printf("Array:%s\n", arrayPhotography);
 	free(arrayPhotography);
 	return 0;
 }
 
-int cloneArray(int** originalArray, int** cloneArray, int arraySize){
-	if(arraySize<0){
-		fprintf(stderr, "The size of the arrays can\'t be negative");
-		exit(EXIT_FAILURE);
-	}
-	for(int i = 0; i < arraySize; i++) *((*cloneArray)+i) = *((*originalArray)+i);
+int readOnArray(int* array, int size, int pos, int* reader){
+	validateSizePos(size, pos);
+	*reader = *(array + pos);
+	return 0;	
+}
+
+int printOnArray(int* array, int size, int pos){
+	int reader = 0;
+	readOnArray(array, size, pos, &reader);
+	printf("Arrat[%i]:%i\n", pos, reader);
 	return 0;
 }
 
-int resizeArray(int** array, int arraySize, int newSize){
-	if(newSize<0||arraySize<0){ 
-		fprintf(stderr, "The size of the arrays can\'t be negative");
-		exit(EXIT_FAILURE);
-	}
-	int * arrayRecovery;
-	initArray(&arrayRecovery, arraySize);
-	cloneArray(array, &arrayRecovery, arraySize);
+//Modifyers
+int writeOnArray(int** array, int size, int pos, int data){
+	*((*array)+pos) = data;
+	return 0;
+}
+
+int deleteOnArray(int** array, int size, int pos){
+	validateSizePos(size,pos);
+	*((*array)+pos) = 0;
+	return 0;
+}
+
+int cloneArray(int** originalArray, int** cloneArray, int size){
+	validateNegative(size);
+	for(int i = 0; i < size; i++) *((*cloneArray)+i) = *((*originalArray)+i);
+	return 0;
+}
+
+int resizeArray(int** array, int size, int newSize){
+	validateNegative(size);
 	*array = (int*) realloc(*array,sizeof(int)*newSize);
-	if(array == NULL){
-		*array = (int*) malloc(sizeof(int)*newSize);
-		cloneArray(&arrayRecovery, array, arraySize);
-	}
-	free(arrayRecovery);
+	validatePointer(*array);
+	for(int i = size; i < newSize; i+=1) *( (*array) + i ) = 0;
 	return 0;
 }
