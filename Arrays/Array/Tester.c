@@ -44,7 +44,7 @@ int main(int argc, char * argv[]){
 
 	pos = randomInRange(0,arraySize-1);
 	printf("Read pos %i of array\n", pos);
-	printOnArray(array, arraySize, pos);
+	printFromArray(array, arraySize, pos);
 	
 	int array2size = arraySize;
 	int* array2 = 0x0;
@@ -80,7 +80,7 @@ int main(int argc, char * argv[]){
 		printf("\tSize: %i, ", arraySize);
 		printArray(array, arraySize);
 	}
-	
-	destroyArray(&array2);
-	destroyArray(&array);
+	printf("Destroy array & array2\n");
+	destroyArray(array2);
+	destroyArray(array);
 }

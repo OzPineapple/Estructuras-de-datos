@@ -11,8 +11,8 @@ int initArray(int** array, int size){
 	return 0;
 }
 
-int destroyArray(int** array){
-	free(*array);
+int destroyArray(int* array){
+	free(array);
 	return 0;
 }
 
@@ -23,7 +23,7 @@ int seeArray(int* array, int size, char** arrayPhotography, int* arrayPhotograph
 	int dataSize = 0;
 	char* data = 0x0;
 
-	*arrayPhotographySize = sizeof(char); 		
+	*arrayPhotographySize = 1; 		
 	*arrayPhotography = (char *) calloc(*arrayPhotographySize, sizeof(char));
 
 	for(int i = 0; i < size; i++){
@@ -55,15 +55,15 @@ int printArray(int* array, int size){
 	return 0;
 }
 
-int readOnArray(int* array, int size, int pos, int* reader){
+int readFromArray(int* array, int size, int pos, int* reader){
 	validateSizePos(size, pos);
 	*reader = *(array + pos);
 	return 0;	
 }
 
-int printOnArray(int* array, int size, int pos){
+int printFromArray(int* array, int size, int pos){
 	int reader = 0;
-	readOnArray(array, size, pos, &reader);
+	readFromArray(array, size, pos, &reader);
 	printf("Arrat[%i]:%i\n", pos, reader);
 	return 0;
 }
@@ -76,7 +76,14 @@ int writeOnArray(int** array, int size, int pos, int data){
 
 int deleteOnArray(int** array, int size, int pos){
 	validateSizePos(size,pos);
-	*((*array)+pos) = 0;
+	writeOnArray(array,size,pos,0);
+	return 0;
+}
+
+int deleteArray(int** array, int size){
+	for(int i=0; i<size; i+=1){
+		deleteOnArray(array,size,i);
+	}
 	return 0;
 }
 
