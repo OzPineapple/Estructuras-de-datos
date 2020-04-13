@@ -37,22 +37,34 @@ int resizeVector(Vector * vector, int newSize, int size){
 	return 0;
 }
 //Get a string with a visual inforamtion of the vector
-int seeVector(Vector * vector, char ** vectorPhotography){
+int seeVector(Vector * vector, char ** vectorPhotography, int* vectorPhotographySize){
 	int vectorSizeStrSize = 0;
-	char * vectorSizeStr = 0x0;
+	char * vectorSizeStr;
 	
 	int ERROR = integerToString(vector->size, &vectorSizeStr, &vectorSizeStrSize);
-	if(ERROR>0) return ERROR;
+	if(ERROR>0) {
+		free(vectorSizeStr);
+		return ERROR;
+	}
 
-	int arrayPhotographySize;
-	char * arrayPhotography = 0x0;
+	int arrayPhotographySize = 0;
+	char * arrayPhotography = (char *) calloc(0, sizeof(char));;
 
 	ERROR = seeArray(vector->array, vector->size, &arrayPhotography, &arrayPhotographySize);
-	if(ERROR>0) return ERROR;
+	if(ERROR>0){
+		free(vectorSizeStr);
+	 	free(arrayPhotography);	
+		return ERROR;
+	}
 
 	free(*vectorPhotography); *vectorPhotography = 0x0;
-	*vectorPhotography = (char *) malloc(sizeof("{\n\tSize:,\n\tArray:,\n}") + sizeof(arrayPhotographySize) + sizeof(vectorSizeStrSize));
-	if(*vectorPhotography == 0x0) return RESERVE_MEMORY_FAIL;
+	*vectorPhotographySize = sizeof("{\n\tSize:,\n\tArray:,\n}") + sizeof(arrayPhotographySize) + sizeof(vectorSizeStrSize); 
+	*vectorPhotography = (char *) malloc( *vectorPhotographySize );
+	if(*vectorPhotography == 0x0){
+		free(vectorSizeStr);
+	 	free(arrayPhotography);	
+		return RESERVE_MEMORY_FAIL;
+	}
 
 	strcat(*vectorPhotography, "{\n\tSize:");		
 	strcat(*vectorPhotography, vectorSizeStr);		
@@ -60,19 +72,36 @@ int seeVector(Vector * vector, char ** vectorPhotography){
 	strcat(*vectorPhotography, arrayPhotography);		
 	strcat(*vectorPhotography, ",\n}");		
 
+	free(vectorSizeStr);
+	free(arrayPhotography);
 	return 0;
 }
 
+int printVector(Vector* vector){
+	int vectorPhotographySize = 0;
+	char* vectorPhotography = 0x0;
+	int err = seeVector(vector, &vectorPhotography, &vectorPhotographySize);
+	if(err) {
+		free(vectorPhotography);
+		return err;
+	}
+	printf("Vector:%s\n", vectorPhotography);
+	free(vectorPhotography);
+	return 0;
+}
+
+//Read a value from the vector
 int readFromVector(Vector * vector, int pos, int * reader){
 	if(pos<0) return UNDERFLOW_VALUE;
 	if(pos>vector->size-1) return OVERFLOW_VALUE;
-	*reader=vector->array[pos];
+	*reader=*( (vector->array) + pos);
 	return 0;
 }
 
+//Write a value on the vector
 int writeOnVector(Vector * vector, int pos, int data){
 	if(pos<0) return UNDERFLOW_VALUE;
 	if(pos>(vector->size - 1)) return OVERFLOW_VALUE;
-	(vector->array)[pos] = data;
+	*((vector->array) + pos) = data;
 	return 0;
 }
