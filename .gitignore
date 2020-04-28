@@ -1,3 +1,7 @@
+#Template files
+*.i
+*.o
+*.s
 #Executable files
 *.out
 #Editing files

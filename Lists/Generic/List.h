@@ -1,13 +1,15 @@
 #include <stdlib.h>
+#include <../lib/util.h>
 
-struct Node{
+typedef struct List{
 	int value;
-	struct Node * link;
-} Node_t;
+	int links;
+	List_t** link;
+} List_t;
 
-int initList( Node_t * list, int values, int size){	
-	*list = (Node_t) malloc(sizeof(Node_t);	
-	if(*list=NULL) return 510;
+int initList( List_t** list, int value, List_t** link, int links){	
+	*list = (List_t*) malloc(sizeof(Node_t);	
+	validatePointer(*list);
 	Note_t * node = list;
 	Node_t * newNode;
 	for(int i = 0; i < size; i++){
