@@ -1,8 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef GLOBAL_UTIL_FUN
-#define GLOBAL_UTIL_FUN 
+#ifndef UTIL_H
+#define UTIL_H 
+
+#define	cpprintf( format , type , pointer ) snprintf( 0x0 , 0 , format , * ( (type*) pointer ));
+
+#define	pprintf( string ,  format , type , pointer ) sprintf( string , format , * ( (type*) pointer ) );
+
 void validateNegative(int num){
 	if(num<0){
 		fprintf(stderr,"Number can\'t be negative\n");
@@ -27,19 +32,17 @@ void validatePointer(void* pointer){
 }
 
 int randomInRange(int lower, int upper){
-	return (random() % (upper - lower + 1)) + lower;
+	return ( rand() % (upper - lower + 1) ) + lower;
 }
 
-int countDigits(int num, int * numSize){
+void countDigits(int num, int * numSize){
 	do{
 		(* numSize)++;
 		num /= 10; 
 	}while(num != 0);
-
-        return 0;
 }
 
-int integerToString(int num, char** strNum, int* strNumSize){
+void integerToString(int num, char** strNum, int* strNumSize){
 	int isNegative = (num<0)? 1:0;
 	if(isNegative){
 		*strNumSize += 1;
@@ -55,10 +58,9 @@ int integerToString(int num, char** strNum, int* strNumSize){
 
 	for(int i = (*strNumSize-2); i > -1; i--){
 		*( (*strNum) + i ) = num%10 + '0';
-		if(i==0 & isNegative) *( (*strNum) ) = 45;
+		if( (i==0) & (isNegative) ) *( (*strNum) ) = 45;
 		num /= 10;
 	}
-	return 0;
 }
 
 #endif
