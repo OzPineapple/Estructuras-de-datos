@@ -8,9 +8,16 @@
 
 #define	pprintf( string ,  format , type , pointer ) sprintf( string , format , * ( (type*) pointer ) );
 
+void validateSize(int num){
+	if(num<1){
+		fprintf(stderr,"validateSize(): Number can\'t be zero or less\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 void validateNegative(int num){
 	if(num<0){
-		fprintf(stderr,"Number can\'t be negative\n");
+		fprintf(stderr,"validateNegative(): Number can\'t be negative\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -19,14 +26,14 @@ void validateSizePos(int size, int pos){
 	validateNegative(size);
 	validateNegative(pos);
 	if(pos>size){
-		fprintf(stderr,"Position can\'t be bigger than size\n");
+		fprintf(stderr,"velidateSizePos(): Position can\'t be bigger than size\n");
 		exit(EXIT_FAILURE);
 	}
 }
 
 void validatePointer(void* pointer){
 	if(pointer == 0x0){
-		fprintf(stderr, "Couldn\'t allocate memory\n");
+		fprintf(stderr, "validatePointer(): Couldn\'t allocate memory, gotted 0x0\n");
 		exit(EXIT_FAILURE);
 	}
 }

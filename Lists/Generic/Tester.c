@@ -1,22 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include "../../lib/util.h"
+#include "List.h"
 
 int main(int argc, char * argv[]){
-	int nums[5];
-	nums[0] = -1;
-	nums[1] = -2;
-	nums[2] = 0;
-	nums[3] = 5;
-	nums[4] = 7;
-
-	for(int i=0; i<5; i+=1){
-		printf("&nums[%i] = %p\n",i,(void*)  &nums[i]);
+	srand( time( NULL ) );
+	List_t * node = 0x0;
+	initNodePointer( &node, randomInRange(-100, 100), randomInRange(1, 20) );
+	printNode( node );
+	changeValueNode( node, randomInRange( -100, 100 ) );
+	printNode( node );
+	deleteValueNode( node );
+	printNode( node );
+	List_t * node_1 = 0x0;
+	initNodePointer( &node_1, randomInRange( -100, 100), randomInRange(1, 20) );
+	printNode( node_1 );
+	List_t * node_2 = 0x0;
+	initNodePointer( &node_2, randomInRange( -100, 100), randomInRange(1, 20) );
+	printNode( node_2 );
+	writeNodeWay( node, randomInRange(0, node -> length - 1), node_1);
+	printNode( node );
+	writeNodeWay( node, randomInRange(0, node -> length - 1), node_2);
+	printNode( node );
+	for( int i = 0; i < 10; i++){
+		resizeNodeWay( node, randomInRange(1, 20) );
+		printNode( node );
 	}
-
-	int** pointers = calloc(5, sizeof(int*));
-	for(int i=0; i<5; i+=1){
-		*(pointers + i) =(int*) &nums[i];
-	       printf("pointer + %i = %p\n", i, *(pointers + i));	
-	}
-	free(pointers);
+	destroyNode( node_1 );
+	destroyNode( node_2 );
+	destroyNode( node );	
 }
