@@ -1,106 +1,71 @@
+/* Local proyect headers */
+#include "../../lib/validate.h"
+#include "Node.h"
+
+/* Standar headers */
 #include <stdlib.h>
+#include <stddef.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include "../../lib/util.h"
 
-/* Init & Destroy  */
-struct List{
-	int value;
-	int length;
-	struct List * * way;
-};
+#ifndef LIST_H
+#define LIST_H
 
-typedef struct List List_t;
-
-/* Node */
-void initNode( List_t * node, int value, int length){	
+/* Init & Des */
+/*
+Node_t * createSimpleList( size_t length, size_t ways ){
 	validateSize( length );
-	node -> value = value;
-	node -> length = length;
-	node -> way = ( List_t * * ) calloc( length, sizeof(List_t*) );
-	validatePointer( node -> way );
-}
-
-void initNodePointer( List_t * * node, int value, int length){
-	*( node ) = ( List_t * ) calloc( 1, sizeof(List_t) );
-	validatePointer( *( node ) );
-	initNode( *( node ), value, length );
-}
-
-void destroyNode( List_t * node ){
-	free( node -> way );
-	free( node );
-}
-
-/* List_t */
-/*void initList_t( List_t * list, int length, int size ){
-	initNode( list, 0, length );
+	validateSize( ways );
 	
-}
+	Node_t * array_nodes = NULL;
+	array_nodes = ( Node_t *) calloc( length, sizeof Node_t  );
+	validatePointer( node );
 
-void initList_tPointer( List_t * * list, int length, int size ){
-	*( list ) = ( List_t * ) calloc( 2, sizeof(List_t) );
-	initList_t( *( list ), length, size );
+	for( size_t index = 0; index < length; index += 1 ){
+		initNode( array_nodes + index, 0, ways );
+	}
+
+	linkNodes( array_nodes, length, ways, 0 );
+
+	return array_nodes;
 }*/
 
-/* Lookers  */
+void linkNode( size_t way, Node_t * node_one, Node_t * node_two ){
+	valNeg( way );
+	valPtr( node_one );
+	valPtr( node_two );
+	valSizePos( node_one -> length, way );
+	writeOnNodeWay( node_one, way, node_two );
+}
 
-/* Node  */
-void seeNode( List_t * node, char * * nodePhotography, int * nodePhotographySize ){
-	*( nodePhotographySize ) = snprintf( 0x0, 0, "value:%i, length:%i, ways:", node -> value, node -> length) + 1;
-	*( nodePhotography ) = ( char * ) calloc( *( nodePhotographySize ), sizeof(char) );
-	sprintf( *( nodePhotography ), "value:%i, length:%i, ways:", node -> value, node -> length );
+void linkNodes(size_t way, size_t count,  Node_t * node, ...){
+	valNeg( way );
 
-	char * elementPhotography = 0x0;
-	int elementPhotographySize = 0;
+	va_list args;
+	va_start( args, node);
+	
+	Node_t * node_one = node;
+	Node_t * node_two = va_arg( args, Node_t * );
+	
+	valPtr( node_one );
+	valPtr( node_two );
+	valSizePos( node_one -> length, way );
 
-	for( int i = 0; i < node -> length; i++ ){
-		elementPhotographySize = snprintf( 0x0, 0, "[%p]" , *( ( List_t * * ) ( node -> way + i ) ) ) + 1;
-		elementPhotography = ( char * ) calloc( elementPhotographySize, sizeof(char) );
-		validatePointer( elementPhotography );
-		sprintf( elementPhotography, "[%p]", *( ( List_t * * ) ( node -> way + i ) ) );
+	
+	count -= 1;
+	for( size_t index = 0; index < count ; index += 1){
+		linkNode( way, node_one, node_two );
+		
+		node_one = node_two;
+		node_two = va_arg( args, Node_t * );	
 
-		*( nodePhotographySize ) += elementPhotographySize; 
-		*( nodePhotography ) = ( char * ) realloc( *( nodePhotography ), sizeof(char) * *( nodePhotographySize ) );
-		validatePointer( *( nodePhotography ) );
-
-		strcat( *( nodePhotography ), elementPhotography );
-		free( elementPhotography );
-		elementPhotography = 0x0;
-		elementPhotographySize = 0;
+		valPtr( node_one );
+		valPtr( node_two );
+		valSizePos( node_one -> length, way );
 	}
+
+	va_end( args );
 }
 
-void printNode( List_t * node ){
-	char * nodePhotography = 0x0;
-	int nodePhotographySize = 0;
-	seeNode( node, &nodePhotography, &nodePhotographySize );
-	printf( "Node:{%s}\n", nodePhotography );
-}
-
-/* Modify  */
-
-/* Node */
-void changeValueNode( List_t * node, int value){
-	node -> value = value;
-}
-
-void deleteValueNode( List_t * node ){
-	changeValueNode( node, 0);
-}
-
-void writeNodeWay( List_t * node, int pos, List_t * link){
-	validateSizePos( node -> length,  pos );
-	*( node -> way + pos ) = link;
-}
-
-void deleteNodeWay( List_t * node, int pos ){
-	writeNodeWay( node, pos, 0x0 );
-}
-
-void resizeNodeWay( List_t * node, int length ){
-	validateSize( length );
-	node -> way = ( List_t * * ) realloc( node -> way, sizeof(List_t*) * length );
-	validatePointer( node -> way );
-	node -> length = length;
-}
+#endif
