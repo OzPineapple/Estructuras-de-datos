@@ -49,7 +49,7 @@ void seeNode( Node_t * node, char * * nodePhotography, int * nodePhotographySize
 	for( int i = 0; i < node -> length; i++ ){
 		elementPhotographySize = snprintf( 0x0, 0, "[%p]" , *( ( Node_t * * ) ( node -> way + i ) ) ) + 1;
 		elementPhotography = ( char * ) calloc( elementPhotographySize, sizeof(char) );
-		validatePointer( elementPhotography );
+		valMem( elementPhotography );
 		sprintf( elementPhotography, "[%p]", *( ( Node_t * * ) ( node -> way + i ) ) );
 
 		*( nodePhotographySize ) += elementPhotographySize; 

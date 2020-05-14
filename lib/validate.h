@@ -13,7 +13,7 @@ void validateSize_definition( int number, const char * file_name, const char * f
 
 void validateNegative_definition( int number, const char * file_name, const char * function_name, const int line_number ){
         if( number < 0 ){
-                fprintf( stderr, "EXCEPTION - %s:%i: Ilegal negative number as argument %s( %i), %i < 0 )\n", file_name, line_number, function_name, number, number);
+                fprintf( stderr, "EXCEPTION - %s:%i: Ilegal negative number as argument %s( %i ), %i < 0 )\n", file_name, line_number, function_name, number, number);
                 exit( EXIT_FAILURE );
         }
 }
