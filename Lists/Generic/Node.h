@@ -31,8 +31,10 @@ void initNodePointer( Node_t * * node, int value, int length){
 }
 
 void destroyNode( Node_t * node ){
+	if( node == 0x0 ) return;
 	free( node -> way );
 	free( node );
+	node = 0x0;
 }
 
 /* Lookers  */
@@ -47,7 +49,7 @@ void seeNode( Node_t * node, char * * nodePhotography, int * nodePhotographySize
 	int elementPhotographySize = 0;
 
 	for( int i = 0; i < node -> length; i++ ){
-		elementPhotographySize = snprintf( 0x0, 0, "[%p]" , *( ( Node_t * * ) ( node -> way + i ) ) ) + 1;
+		elementPhotographySize = snprintf( 0x0, 0, "[%p]" , ( Node_t *  ) *( ( Node_t * * ) ( node -> way + i ) ) ) + 1;
 		elementPhotography = ( char * ) calloc( elementPhotographySize, sizeof(char) );
 		valMem( elementPhotography );
 		sprintf( elementPhotography, "[%p]", *( ( Node_t * * ) ( node -> way + i ) ) );
@@ -107,6 +109,52 @@ void resizeNodeWay( Node_t * node, int length ){
 	node -> way = ( Node_t * * ) realloc( node -> way, sizeof(Node_t*) * length );
 	valMem( node -> way );
 	node -> length = length;
+}
+
+/* Linkres */
+
+void linkNode( size_t way, Node_t * node_one, Node_t * node_two ){
+	valNeg( way );
+	valPtr( node_one );
+	valPtr( node_two );
+	valSizePos( node_one -> length, way );
+	writeOnNodeWay( node_one, way, node_two );
+}
+
+void linkNodes(size_t way, size_t count,  Node_t * node, ...){
+	valNeg( way );
+
+	va_list args;
+	va_start( args, node );
+
+	Node_t * node_one = node;
+	Node_t * node_two = va_arg( args, Node_t * );
+
+	valPtr( node_one );
+	valPtr( node_two );
+	valSizePos( node_one -> length, way );
+
+
+	count -= 1;
+	for( size_t index = 0; index < count ; index += 1){
+		linkNode( way, node_one, node_two );
+
+		node_one = node_two;
+		node_two = va_arg( args, Node_t * );
+
+		valPtr( node_one );
+		valPtr( node_two );
+		valSizePos( node_one -> length, way );
+	}
+
+	va_end( args );
+}
+
+void unlinkNode( size_t way, Node_t * node_one ){
+	valNeg( way );
+	valPtr( node_one );
+	valSizePos( node_one -> length, way );
+	deleteOnNodeWay( node_one, way );
 }
 
 #endif
