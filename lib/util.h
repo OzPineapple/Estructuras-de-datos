@@ -39,6 +39,10 @@ void validatePointer(void* pointer){
 }
 
 int randomInRange(int lower, int upper){
+	if( lower > upper ){
+		fprintf( stderr, "%s(): lower bigger than upper %i > %i\n", __FUNCTION__, lower, upper);
+		exit(EXIT_FAILURE);
+	}
 	return ( rand() % (upper - lower + 1) ) + lower;
 }
 

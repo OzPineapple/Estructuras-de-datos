@@ -37,7 +37,18 @@ void validateMemory_definition( void * pointer, const char * file_name, const ch
 
 void validatePointer_definition( void * pointer, const char * file_name, const char * function_name, const int line_number ){
 	if( pointer == 0x0 ){
-		fprintf( stderr, "EXCEPTION - %s:%i: Ilegal null pointer as argument %s( 0x0 )\n", file_name, line_number, function_name );
+		fprintf( stderr, "EXCEPTION - %s:%i: Ilegal null pointer as argument %s( ␀ )\n", file_name, line_number, function_name );
+		exit( EXIT_FAILURE );
+	}
+}
+
+void validatePointerToPointer_definition( void * * pointer, const char * file_name, const char * function_name, const int line_number ){
+	if( pointer == 0x0 ){
+		fprintf( stderr, "EXCEPTION - %s:%i: Ilegal null pointer as argument %s( ␀ )\n", file_name, line_number, function_name );
+		exit( EXIT_FAILURE );
+	}
+	if( ( * pointer ) == 0x0 ){
+		fprintf( stderr, "EXCEPTION - %s:%i: Ilegal null pointer as argument %s( %p → ␀ )\n", file_name, line_number, function_name, pointer );
 		exit( EXIT_FAILURE );
 	}
 }
@@ -51,5 +62,7 @@ void validatePointer_definition( void * pointer, const char * file_name, const c
 #define valMem( pointer ) validateMemory_definition( pointer, __FILE__, __FUNCTION__, __LINE__ );
 
 #define valPtr( pointer ) validatePointer_definition( pointer, __FILE__, __FUNCTION__, __LINE__ );
+
+#define val2Ptr( pointer ) validatePointerToPointer_definition( pointer, __FILE__, __FUNCTION__, __LINE__ );
 
 #endif
