@@ -33,19 +33,26 @@ Node_t * newList( size_t length, size_t ways ){
 	return head;
 }
 
+static void destroyList_function_recursive( size_t way, Node_t * header, Node_t * list ){
+	
+	valSizePos( list -> length, way );
+
+	Node_t * next = *( list -> way + way );
+
+	destroyNode( list );
+
+	if( next == 0x0 || next == header ) return;
+
+	destroyList_function_recursive( way, header, next );
+}
+
 void destroyList( size_t way, Node_t * list ){
 
 	if( list == 0x0) return;
 	
 	valNeg( way );
-	valSizePos( list -> length, way );
 	
-	Node_t * next = *( list -> way + way );
-	destroyNode( list );
-
-	if( next == 0x0 ) return;
-
-	destroyList( way, next );
+	destroyList_function_recursive( way, list, list );
 }
 
 void listpp( size_t way, Node_t * * list ){
@@ -60,12 +67,15 @@ int lengthOfList( size_t way, Node_t * list ){
 	if( list == 0x0 ) return 0;
 	
 	valSizePos( list -> length, way );
+
 	Node_t * node = list;
 	int count = 0;
-	while( node != 0x0 ){
+
+	do{
 		listpp( way, &node );
-		count += 1;
-	}
+		count++;
+	}while( node != 0x0 && node != list );
+	
 	return count;
 }
 
@@ -101,6 +111,9 @@ Node_t * getLastNodeOnList( size_t way, Node_t * list ){
 	}
 	return list;
 }
+
+
+/* Poppers */
 
 Node_t * popFirstNodeOnListNlink( size_t way, Node_t * * list ){
 	valNeg( way );
@@ -147,6 +160,9 @@ Node_t * popNodeOnListNlink( size_t way, Node_t * * list, size_t pos ){
 	return middle;
 }
 
+
+/* Cutters  */
+
 Node_t * cutList( size_t way, Node_t * list, size_t pos ){
 	valNeg( way );
 	valNeg( pos );
@@ -176,7 +192,6 @@ int readOnList( size_t way, Node_t * list, size_t pos ){
 
 void printList( size_t way, Node_t * list ){
 	valNeg( way );
-	valPtr( list );
 	if( list == 0x0){	
 		printf( "{(nil)}\n" );
 		return;
@@ -222,8 +237,18 @@ void writeOnList( size_t way, Node_t * list, size_t pos, int val ){
 	valNeg( way );
 	valNeg( pos );
 	valPtr( list );
+	valSizePos( list -> length, way );
 	valSizePos( lengthOfList( way, list ), pos );
 	( getNodeOnList( way, list, pos ) ) -> value = val;
+}
+
+void deleteOnList( size_t way, Node_t * list, size_t pos ){
+	valNeg( way );
+	valNeg( pos );
+	valPtr( list );
+	valSizePos( list -> length, way );
+	valSizePos( lengthOfList( way, list ), pos );
+	writeOnList( way, list, pos, 0 );
 }
 
 /* Destroy */
