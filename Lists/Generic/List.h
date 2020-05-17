@@ -176,6 +176,7 @@ int readOnList( size_t way, Node_t * list, size_t pos ){
 
 void printList( size_t way, Node_t * list ){
 	valNeg( way );
+	valPtr( list );
 	if( list == 0x0){	
 		printf( "{(nil)}\n" );
 		return;

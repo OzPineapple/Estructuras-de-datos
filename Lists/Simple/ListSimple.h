@@ -13,12 +13,29 @@
 
 void initListSimplePointer( Node_t * * list, size_t size ){
 	valSize( size );
-	* list = newList( size, 1);
+	*list = newList( size, 1);
 }
 
-void destroyListSimple( Node_t * list ){
-	valPtr( list );
-	destroyList( 0, list );
-}
+#define destroyListSimple( list ) destroyList( 0, list );
+
+/* Lookers  */
+
+#define printListSimple( list ) printList( 0, list );
+
+/* Modifiers */
+
+#define listSimpleInsert( list, node ) listInsert( 0, list, node );
+
+#define listSimpleAppend( list, node ) listAppend( 0, list, node );
+
+/* Getters  */
+
+/* Poppers */
+
+#define popFirstNodeOnListSimpleNlink( list ) popFirstNodeOnListNlink( 0, list );
+
+#define popNodeOnListSimpleNlink( list, pos ) popNodeOnListNlink( 0, list, pos  );
+
+#define popLastNodeOnListSimpleNlink( list ) popLastNodeOnListNlink( 0, list );
 
 #endif
