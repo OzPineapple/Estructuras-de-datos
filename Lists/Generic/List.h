@@ -24,7 +24,7 @@ Node_t * newList( size_t length, size_t ways ){
 	
 	Node_t * node = 0x0;
 
-	for( size_t count = 0; count < length; count += 1 ){
+	for( size_t count = 1; count < length; count += 1 ){
 		initNodePointer( &node, 0, ways );
 		linkNode( 0, list, node );
 		list = node;
@@ -106,10 +106,12 @@ Node_t * getLastNodeOnList( size_t way, Node_t * list ){
 	valPtr( list );
 	valSizePos( list -> length, way );
 
-	while( getNextNodeOnList( way, list) != 0x0 ){
-		list = getNextNodeOnList( way, list );
+	Node_t * node = list;
+
+	while( getNextNodeOnList( way, node) != 0x0 && getNextNodeOnList( way, node) != list){
+		listpp( way, &node);
 	}
-	return list;
+	return node;
 }
 
 
@@ -137,6 +139,7 @@ Node_t * popLastNodeOnListNlink( size_t way, Node_t * list ){
 		listpp( way, &node );
 	}
 
+	unlinkNode( way, last );
 	unlinkNode( way, node );
 	return last;
 }
@@ -148,8 +151,8 @@ Node_t * popNodeOnListNlink( size_t way, Node_t * * list, size_t pos ){
 	valSizePos( (*list) -> length, way );
 	
 	if( pos == 0 ) return popFirstNodeOnListNlink( way, list );
-	Node_t * next= getNodeOnList( way, *list, pos + 1 );
-	if( next == 0x0 ) return popLastNodeOnListNlink( way, *list );
+	Node_t * next = getNodeOnList( way, *list, pos + 1 );
+	if( next == 0x0 || next == *list ) return popLastNodeOnListNlink( way, *list );
 
 	Node_t * behind = getNodeOnList( way, *list, pos - 1); 
 	Node_t * middle = getNodeOnList( way, *list, pos); 
