@@ -116,7 +116,6 @@ void resizeNodeWay( Node_t * node, int length ){
 void linkNode( size_t way, Node_t * node_one, Node_t * node_two ){
 	valNeg( way );
 	valPtr( node_one );
-	valPtr( node_two );
 	valSizePos( node_one -> length, way );
 	writeOnNodeWay( node_one, way, node_two );
 }
