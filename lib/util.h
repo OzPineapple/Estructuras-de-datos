@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -8,35 +9,7 @@
 
 #define	pprintf( string ,  format , type , pointer ) sprintf( string , format , * ( (type*) pointer ) );
 
-void validateSize(int num){
-	if(num<1){
-		fprintf(stderr,"validateSize(): Number can\'t be zero or less\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void validateNegative(int num){
-	if(num<0){
-		fprintf(stderr,"validateNegative(): Number can\'t be negative\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void validateSizePos(int size, int pos){
-	validateNegative(size);
-	validateNegative(pos);
-	if(pos>size){
-		fprintf(stderr,"velidateSizePos(): Position can\'t be bigger than size\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void validatePointer(void* pointer){
-	if(pointer == 0x0){
-		fprintf(stderr, "validatePointer(): Couldn\'t allocate memory, gotted 0x0\n");
-		exit(EXIT_FAILURE);
-	}
-}
+#define println printf( "\n" )
 
 int randomInRange(int lower, int upper){
 	if( lower > upper ){
