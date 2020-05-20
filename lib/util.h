@@ -11,6 +11,8 @@
 
 #define println printf( "\n" )
 
+#define printtb printf( "\t" )
+
 int randomInRange(int lower, int upper){
 	if( lower > upper ){
 		fprintf( stderr, "%s(): lower bigger than upper %i > %i\n", __FUNCTION__, lower, upper);
