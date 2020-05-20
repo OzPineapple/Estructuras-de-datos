@@ -13,7 +13,7 @@ int main( int argc, char * argv[] ){
 	
 	printf( "\nPileArray.h - Init\n" );
 	PileArray_t * pile_array = 0x0;
-	initPileArrayPointer( &pile_array, randomInRange( 1, 3 ) );
+	initPileArrayPointer( &pile_array, randomInRange( 1, 5 ) );
 
 	printf( "\nPileArray.h - Print\n" );
 	printPileArray( pile_array );

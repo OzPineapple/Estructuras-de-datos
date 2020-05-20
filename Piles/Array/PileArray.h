@@ -51,7 +51,7 @@ void printPileArray( PileArray_t * pile ){
 	int size;
 	char * photo;
 	seeArray( pile -> array, pile -> length, &photo, &size );
-	printf( "Pile{ length: %i, array:%s ", (int) pile -> length, photo );
+	printf( "Pile{ length: %i, array:%s }\n", (int) pile -> length, photo );
 }
 
 int readOnPileArray( PileArray_t * pile, size_t pos ){
@@ -66,15 +66,16 @@ int readOnPileArray( PileArray_t * pile, size_t pos ){
 
 void pileArrayPush( PileArray_t * pile, int value ){
 	valPtr( pile );
-	resizeArray( &(pile -> array), pile -> length, pile -> length ++ ); 
-	writeOnArray( &( pile -> array ), pile -> length, pile -> length --, value );
+	resizeArray( &(pile -> array), pile -> length, pile -> length + 1 ); 
+	pile -> length ++;
+	writeOnArray( &( pile -> array ), pile -> length, pile -> length - 1, value );
 }
 
 int pileArrayPop( PileArray_t * pile ){
 	valPtr( pile );
 	int value = 0;
-	readFromArray( pile -> array, pile -> length, pile -> length --, & value );
-	resizeArray( &( pile -> array ), pile -> length, pile -> length -- );
+	readFromArray( pile -> array, pile -> length, pile -> length - 1, & value );
+	resizeArray( &( pile -> array ), pile -> length, pile -> length - 1 );
 	pile -> length --;
 	return value;	
 }
