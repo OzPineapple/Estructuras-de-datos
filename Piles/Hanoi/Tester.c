@@ -1,7 +1,7 @@
 // Local headers
 #include <lib/validate.h>
 #include <lib/util.h>
-#include " Hanoi.h"
+#include "Hanoi.h"
 
 // Standar headers
 #include <time.h>
@@ -13,11 +13,18 @@ int main( int argc, char * argv[] ){
 	
 	printf( "\nHanoi.h - Init\n" );
 	int size = 0;
-	scanf( "%i", size );
+	printf( "Insert hanoi size: " );
+	scanf( "%i", & size );
+	println;
 	Hanoi_t * hanoi = newHanoi( size );
 	printHanoi( hanoi );
+	println;
+
+	printf( "\nHanoi.h - Solving hanoi\n" );
+	solveHanoi( hanoi );
 
 	printf( "\nPileArray.h - Destroy\n" );
 	hanoi =	destroyHanoi( hanoi );
 	printHanoi( hanoi );
+	println;
 }
