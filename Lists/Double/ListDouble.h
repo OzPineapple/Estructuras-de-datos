@@ -89,6 +89,7 @@ Node_t * popLastNodeOnListDoubleNlink( Node_t * list ){
 	Node_t * prelast = *( last -> way + 1 );
 	unlinkNode( 0, prelast );
 	unlinkNode( 1, last );
+	return last;
 }
 
 // Destroy
