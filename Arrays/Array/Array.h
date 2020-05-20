@@ -22,7 +22,7 @@ int destroyArray(int * array){
 int seeArray(int * array, int size, char * * arrayPhotography, int * arrayPhotographySize){
 	valPtr( array );
 	valSize( size );
-	val2Ptr( (void**) arrayPhotography );
+	valPtr( arrayPhotography );
 	valPtr( arrayPhotographySize );
 
 	int dataSize = 0;
