@@ -12,3 +12,5 @@ make -C Lists/Double\ Cyclic/
 make -C Piles/Array/
 make -C Piles/List/
 make -C Piles/Hanoi/
+make -C Queues/Array/
+make -C Queues/List/
