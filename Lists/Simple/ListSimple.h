@@ -1,20 +1,11 @@
 /* Local proyect headers */
-#include "../../lib/validate.h"
-#include "../Generic/List.h" 
-/* Standar headers */
-#include <stdlib.h>
-#include <stddef.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+#include <lib/validate.h>
+#include <Lists/Generic/List.h>
 
-#ifndef LISTSIMPLE_H
-#define LISTSIMPLE_H
+#ifndef _LISTSIMPLE_H
+#define _LISTSIMPLE_H
 
-void initListSimplePointer( Node_t * * list, size_t size ){
-	valSize( size );
-	*list = newList( size, 1);
-}
+void initListSimplePointer (Node_t * *list, size_t size);
 
 #define destroyListSimple( list ) destroyList( 0, list )
 
@@ -56,4 +47,4 @@ void initListSimplePointer( Node_t * * list, size_t size ){
 
 #define destroyNodeOnListSimpleNlink( list, pos ) destroyNodeOnListNlink( 0, list, pos );
 
-#endif
+#endif //_LISTSIMPLE_H
