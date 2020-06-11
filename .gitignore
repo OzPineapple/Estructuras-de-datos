@@ -3,6 +3,7 @@
 *.o
 *.s
 *.cbk
+*.hbk
 *.so
 #Executable files
 *.out
