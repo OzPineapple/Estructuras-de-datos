@@ -2,8 +2,8 @@
 COMPILER = gcc
 WD = $(shell realpath ./../../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
-LIBRARY = -L ./ -L $(WD)/lib -L $(WD)/Vectors/Array/Int
-RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Vectors/Array/Int
+LIBRARY = -L ./ -L $(WD)/lib
+RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
 
@@ -13,16 +13,16 @@ I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 all: main.out 
 	./main.out
 
-main.out: main.o libvector.so
-	$C -o $@ $< -lvector -lutil
+main.out: main.o libgenericvector.so
+	$C -o $@ $< -lgenericvector -lutil -lvalidate
 
-main.o: main.c Vector.h
+main.o: main.c GenericVector.h
 	$I $<
 	$C -c $<
 
-libvector.so: libvector.c Vector.h
+libgenericvector.so: libgenericvector.c GenericVector.h
 	$I $<
-	$C -fPIC -shared -o $@ $< -lc -lvalidate -larray
+	$C -fPIC -shared -o $@ $< -lc -lvalidate
 
 clean:
 	rm -f ./*.cbk

@@ -1,5 +1,24 @@
 #ifndef _GENERIC_VECTOR_H
 #define _GENERIC_VECTOR_H
+
+//Struct
+struct GenericVector_Struct {
+	int length;
+	void* array;
+};
+
+typedef struct GenericVector_Struct GenericVector;
+
+void
+initGenericVector (GenericVector * generic_vector, int length, int size);
+
+void
+initGenericVectorPointer (GenericVector ** generic_vector, int length,
+			  int size);
+
+void
+destroyGenericVector (GenericVector * generic_vector);
+
 //Lookers
 /* seeGenericVector( GenericVector * generic_vector, char ** generic_vectorPhotography, int * generic_vectorPhotographySize, char* format, type) */
 #define seeGenericVector(GenericVector, generic_vectorPhotography, generic_vectorPhotographySize, format, type) ({ \
