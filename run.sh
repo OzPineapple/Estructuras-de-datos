@@ -1,5 +1,5 @@
 #!/bin/bash
-
+make -C lib/
 make -C Vectors/Array/Int/
 make -C Vectors/Vector/Int/
 make -C Vectors/Vector/Generic/
