@@ -7,6 +7,7 @@ LIBRARY = -L ./ -L $(WD)/lib
 RPATH = -Wl,-rpath $(WD)/lib -Wl,-rpath ./
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
+CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
@@ -19,7 +20,7 @@ main.out: main.o libarray.so
 
 main.o: main.c Array.h
 	$I $<
-	$C -c $<
+	$(CP) -c $<
 
 libarray.so: libarray.c Array.h
 	$I $<

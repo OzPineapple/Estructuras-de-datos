@@ -6,6 +6,7 @@ LIBRARY = -L ./ -L $(WD)/lib
 RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
+CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
@@ -18,7 +19,7 @@ main.out: main.o libgenericvector.so
 
 main.o: main.c GenericVector.h
 	$I $<
-	$C -c $<
+	$(CP) -c $<
 
 libgenericvector.so: libgenericvector.c GenericVector.h
 	$I $<

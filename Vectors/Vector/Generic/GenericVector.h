@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+
 #ifndef _GENERIC_VECTOR_H
 #define _GENERIC_VECTOR_H
 

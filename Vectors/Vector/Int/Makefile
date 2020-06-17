@@ -6,6 +6,7 @@ LIBRARY = -L ./ -L $(WD)/lib -L $(WD)/Vectors/Array/Int
 RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Vectors/Array/Int
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
+CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
@@ -18,7 +19,7 @@ main.out: main.o libvector.so
 
 main.o: main.c Vector.h
 	$I $<
-	$C -c $<
+	$(CP) -c $<
 
 libvector.so: libvector.c Vector.h
 	$I $<

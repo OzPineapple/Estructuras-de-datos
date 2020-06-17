@@ -6,6 +6,7 @@ LIBRARY = -L ./ -L $(WD)/lib
 RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib
 FLAGS = -std=c99 -Wall -g3 $(INCLUDE) $(LIBRARY) $(RPATH)
 C = $(COMPILER) $(FLAGS)
+CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
@@ -18,7 +19,7 @@ main.out: main.o liblist.so libnode.so
 
 main.o: main.c List.h Node.h
 	$I $^
-	$C -c $<
+	$(CP) -c $<
 
 liblist.so: liblist.c List.h Node.h libnode.so
 	$I $<

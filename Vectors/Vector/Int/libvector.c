@@ -6,6 +6,7 @@
 
 // Include standar
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 Vector_t *

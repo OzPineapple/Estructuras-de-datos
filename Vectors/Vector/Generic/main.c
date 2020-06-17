@@ -3,6 +3,7 @@
 #include <time.h>
 #include "GenericVector.h"
 #include <lib/validate.h>
+#include <lib/util.h>
 
 int
 main (int argc, char *argv[])
