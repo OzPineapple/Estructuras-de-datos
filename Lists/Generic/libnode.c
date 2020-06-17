@@ -79,7 +79,10 @@ seeNode (Node_t * node, char * *nodePhotography, int *nodePhotographySize)
 void
 printNode (Node_t * node)
 {
-  valPtr (node);
+  if (node == 0x0)
+    {
+      printf ("{(nil)}\n");
+    }
   char *nodePhotography = 0x0;
   int nodePhotographySize = 0;
   seeNode (node, &nodePhotography, &nodePhotographySize);
