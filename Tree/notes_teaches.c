@@ -81,6 +81,91 @@ struct arbol * insertar( struct Arbol * raiz, int dato ) {
 	return raiz;
 }
 
+struct Arbol * eliminar( struct Arbol * raiz, int dato ){
+	struct Arbol * nodo_a_eliminar = NULL;
+	struct Arbol * padre_del_nodo_a_eliminar = NULL;
+	if( raiz == NULL ){
+		return 0x0;
+	}
+	/*Localizar al nodo */
+	nodo_a_eliminar = raiz;
+	while(nodo_a_eliminar != dato){
+		padre_del_nodo_a_eliminar = nodo_a_eliminar;
+		if( dato < nodo_a_eliminar->dato){
+			nodo_a_eliminar = nodo_a_eliminar->izquierda;
+		}else{
+			nodo_a_eliminar = nodo_a_eliminar->derecha;
+		}
+		if(nodo_a_eliminar == NULL){
+			break;
+		}
+		if(nodo_a_eliminar == NULL ){ /* No estaba en el árbol*/
+			return raiz;
+		}
+	}
+
+	/* Hacer preguntas al dato */
+	/* caso: El nodo a eliminar es una hoja… */
+	if(nodo_a_eliminar == NULL && nodo_a_elimianr->isquierda == NULL){
+		if(padre_del_nodo_a_eliminar->dato > nodo_a_eliminar->dato){
+			padre_del_nodo_a_eliminar->izquierda = NULL;
+		}else{
+			padre_del_nodo_a_eliminar->derecha = NULL;
+		}
+		free( nodo_a_eliminar );
+		return raiz;
+	}
+
+	/* Caso: Sólo hay un hijo */
+	if(nodo_a_eliminar->dercha == NULL ){
+		if(padre_del_nodo_a_eliminar->dato > nodo_a_eliminar->dato){
+			padre_del_nodo_a_eliminar->izquierda = nodo_a_eliminar->izquierdo;
+		}else{
+			padre_del_nodo_a_eliminar->derecha = nodo_a_eliminar->izquierdo;
+		}
+		free( nodo_a_eliminar );
+		return raiz;
+	}
+
+	if(nodo_a_eliminar->izquierda == NULL ){
+		if(padre_del_nodo_a_eliminar->dato > nodo_a_eliminar->dato){
+			padre_del_nodo_a_eliminar->izquierda = nodo_a_eliminar->derecha;
+		}else{
+			padre_del_nodo_a_eliminar->derecha = nodo_a_eliminar->derecha;
+		}
+		free( nodo_a_eliminar );
+		return raiz;
+	}
+
+	/* Caso: Tengo izquierdo y derecho… */
+
+
+	/*localiza el dato*/
+	struct Arbol * lugar_a_eliminar = buscar( raiz, dato );
+	if( lugar_a_eliminar == NULL){
+		return raiz;
+	}
+	lugar_a_eliminar
+
+	/*
+	 *  padre(?)
+	 *	\
+	 *	 \
+	 *	  x
+	 *	 / \
+	 *	/   \
+	 *  izq(?) der(?)
+	 * */
+	/* Buscar un substituto */
+	/* ¿Criterio?, Bucar al más chico de la derecha */
+	/* Caso especial:
+	 * 		Y
+	 *	       /
+	 *	      /
+	 *	     
+	*/
+}
+
 int main(void){
 
 	struct Arbol * arbol = NULL;
@@ -89,6 +174,8 @@ int main(void){
 	arbol = insertar( arbol, 100 );
 	arbol = insertar( arbol, 15 );
 	arbol = insertar( arbol, 150 );
+
+	arbol = eliminar( arbol, 50 );
 
 	return 0;
 }
