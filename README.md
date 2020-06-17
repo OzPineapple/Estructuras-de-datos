@@ -22,9 +22,14 @@ Estructuras en repositorio:
 14) Tabla hash abierta
 15) Tabla hash cerrada
 16) Árbol binario de Búsqueda
+    árbol: mostrar -> con variantes de recorridos: pre, in, post
+
 
 Metodos
 insertar (con variantes de nombre: push para pila)
 eliminar (con variante de nombre: pop para pila)
 mostrar
 buscar
+
+Preguntas: 
+complejidad, características fundamentales de cada estructura
