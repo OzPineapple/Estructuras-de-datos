@@ -40,6 +40,11 @@ destroyNode (Node_t * node)
 void
 seeNode (Node_t * node, char * *nodePhotography, int *nodePhotographySize)
 {
+  if (node == 0x0)
+    {
+      strcpy (*nodePhotography, "(nil)\0");
+      *nodePhotographySize = 6;
+    }
   char *photography = "direcction:%p, value:%i, length:%i, ways:";
 
   *(nodePhotographySize) =

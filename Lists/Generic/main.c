@@ -85,16 +85,16 @@ main (void)
   popped_last = 0x0;
 
   printf ("\nList - listpp\n");
-  printList (0, list);
+  Node_t *aux = list;
+  printList (0, aux);
   for (size_t index = 0; index < 3; index += 1)
     {
-      if (list == 0x0)
+      if (aux == 0x0)
 	{
-	  printf
-	    (" [ N ] → [ 0x0 ]  The list arrives on 0x0, the program gona fail, don't worry just re-run\n");
+	  break;
 	}
-      listpp (0, &list);
-      printList (0, list);
+      listpp (0, &aux);
+      printList (0, aux);
     }
 
   printf ("\nList - write ramdomly\n");

@@ -31,12 +31,14 @@ libnode.so: libnode.c Node.h
 
 clean:
 	rm -f ./*.cbk
+	rm -f ./*.hbk
 	rm -f ./*.out
 	rm -f ./*.so 
 	rm -f ./*.o
 
 delbk:
 	rm ./*.cbk
+	rm ./*.hbk
 
 debug: main.out
 	gdb ./$<
