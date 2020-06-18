@@ -44,6 +44,7 @@ seeNode (Node_t * node, char * *nodePhotography, int *nodePhotographySize)
     {
       strcpy (*nodePhotography, "(nil)\0");
       *nodePhotographySize = 6;
+      return;
     }
   char *photography = "direcction:%p, value:%i, length:%i, ways:";
 

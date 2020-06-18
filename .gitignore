@@ -10,3 +10,5 @@
 #Editing files
 *.swp
 *.swo
+#Editors folders
+.vscode
