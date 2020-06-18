@@ -17,12 +17,12 @@ Cuando dos datos generan el mismo valor de posición se le llama colisión, hay 
 
 const int N = 100; // Guardar hasta N/3 datos
 
-int funcion has( int dato ){
+int funcion_hash( int dato ){
 	return dato*dato % N;
 }
 
 int funcion_rehash( int dato, int intento){ /*Familia de funciones*/
-	return pow(dato * intento) % N;
+	return (int) pow( (double) dato, (double) intento) % N;
 }
 /*
 struct Lista{
@@ -45,7 +45,7 @@ int insertar(struct TablaHash * tabla, int dato){
 		cuantos++;
 	}else{
 		for(size_t i =0; tabla -> libre[donde]==0; i++){ //Buscar posición via rehash
-			dodne = funcion_rehash(dato, i);
+			donde = funcion_rehash(dato, i);
 		}
 		tabla->dato[ donde ] = dato;
 		cuantos++;
