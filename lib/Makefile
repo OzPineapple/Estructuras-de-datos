@@ -1,33 +1,35 @@
-# ARGS
-SOURCE = ./libutil.c ./libvalidate.c ./util.h ./validate.h
-BIN = ./libvalidate.so ./libutil.so ./main.out ./main.o
-COMPILER = gcc
-FLAGS = -std=c99 -Wall -g3
-C = $(COMPILER) $(FLAGS)
+# Varaibles
+COPILADOR = gcc
+BANDERAS = -std=c99 -Wall -g3
+C = $(COPILADOR) $(BANDERAS)
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
-all: main.out 
+all: main.out
+	make clean_bk
 	./main.out
 
-main.out: main.o libutil.so libvalidate.so	
+dev: main.out
+	./main.out
+
+main.out: main.o util.so validar.so	
 	$C -o $@ $^ -Wl,-rpath=./
 
-main.o: main.c validate.h util.h
+main.o: main.c validar.h util.h
 	$I $<
 	$C -c $<
 
-libvalidate.so: libvalidate.c validate.h
+validar.so: validar.c validar.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc
 
-libutil.so: libutil.c util.h
+util.so: util.c util.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc
 
 clean:
-	rm $(BIN) ./*cbk
+	rm -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o
 
-delbk:
-	rm ./*.cbk
+clean_bk:
+	rm -f ./*.cbk ./*.hbk ./*.o
