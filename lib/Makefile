@@ -13,18 +13,18 @@ all: main.out
 dev: main.out
 	./main.out
 
-main.out: main.o util.so validar.so	
+main.out: main.o libutil.so libvalidar.so	
 	$C -o $@ $^ -Wl,-rpath=./
 
 main.o: main.c validar.h util.h
 	$I $<
 	$C -c $<
 
-validar.so: validar.c validar.h
+libvalidar.so: validar.c validar.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc
 
-util.so: util.c util.h
+libutil.so: util.c util.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc
 

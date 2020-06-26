@@ -1,5 +1,4 @@
 # ARGS
-BIN = ./libarray.so ./main.out ./main.o
 COMPILER = gcc
 WD = $(shell realpath ./../../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
@@ -12,25 +11,26 @@ CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
-all: main.out 
+all: main.out
+	make rmbk
 	./main.out
 
-main.out: main.o libarray.so
-	$C -o $@ $< -larray -lutil
+main.out: main.o libarreglo.so
+	$C -o $@ $< -larreglo -lutil
 
-main.o: main.c Array.h
+main.o: main.c arreglo.h
 	$I $<
 	$(CP) -c $<
 
-libarray.so: libarray.c Array.h
-	$I $<
-	$C -fPIC -shared -o $@ $< -lc -lutil -lvalidate
+libarreglo.so: arreglo.c arreglo.h
+	$I $^
+	$C -fPIC -shared -o $@ $< -lc -lutil -lvalidar
 
 clean:
-	rm $(BIN) ./*cbk
+	rm -f ./*.so ./*.o ./*.out ./*.cbk ./*.hbk
 
-delbk:
-	rm ./*.cbk
+rmbk:
+	rm -f ./*.cbk ./*.hbk
 
 debug: main.out
 	gdb ./$<

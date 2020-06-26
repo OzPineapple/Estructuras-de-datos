@@ -9,6 +9,7 @@ Estructuras en repositorio:
     - [ ] Insertar
     - [ ] Eliminar
     - [ ] Mostrar
+    - [ ] Leer
     - [ ] Buscar
 - [ ] Listas ligadas sencillas.
     - [ ] Insertar
