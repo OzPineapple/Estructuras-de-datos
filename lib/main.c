@@ -1,5 +1,5 @@
 #include "util.h"
-#include "validate.h"
+#include "validar.h"
 
 #include <stdio.h>
 
@@ -13,15 +13,7 @@ main (void)
   printtb;
 
   println;
-  printf ("Util.h - randomInRange: %i\n", randomInRange (-100, 100));
+  printf ("Util.h - randomInRange: %i\n", aleatorio (-100, 100));
 
-  int count = 0;
-  countDigits (randomInRange (-100, 100), &count);
-  printf ("Util.h - randomInRange: %i\n", count);
-
-  char *str = 0x0;
-
-  integerToString (count, &str, &count);
-  printf ("Util.h - integerToString: %s\n", str);
   return 0;
 }
