@@ -2,15 +2,18 @@
 ## Autor: Cortés Piña Oziel
 
 # Ejecutar
+El projecto depende de estructuras unas de otras, se debe correr el comando `make` en el primer nivel o ejecutar `make` por cada dependencia requerida. Por ejemplo, todos dependen del lib/ así que ejecutar `make` en lib/ es necesario para ejecutar el arreglo y a su vez el arreglo para ejecutar el vector.
 
 # Rubric
 Estructuras en repositorio:
-- [ ] Vector ("arreglo dinámico")
-    - [ ] Insertar
-    - [ ] Eliminar
-    - [ ] Mostrar
-    - [ ] Leer
-    - [ ] Buscar
+- [X] Vector ("arreglo dinámico")
+    - [x] Crear
+    - [x] Insertar
+    - [X] Eliminar
+    - [x] Mostrar
+    - [x] Leer
+    - [x] Buscar
+    - [x] Destruir
 - [ ] Listas ligadas sencillas.
     - [ ] Insertar
     - [ ] Eliminar

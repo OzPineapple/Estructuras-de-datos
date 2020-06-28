@@ -18,11 +18,11 @@ all: main.out
 main.out: main.o libarreglo.so
 	$C -o $@ $< -larreglo -lutil
 
-main.o: main.c arreglo.h
+main.o: main.c Arreglo.h
 	$I $<
 	$(CP) -c $<
 
-libarreglo.so: arreglo.c arreglo.h
+libarreglo.so: Arreglo.c Arreglo.h
 	$I $^
 	$C -fPIC -shared -o $@ $< -lc -lutil -lvalidar
 

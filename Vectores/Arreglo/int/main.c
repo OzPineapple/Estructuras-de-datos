@@ -1,6 +1,6 @@
 // Include local
 #include <lib/util.h>
-#include "arreglo.h"
+#include "Arreglo.h"
 
 // Include standar
 #include <stdio.h>
@@ -29,7 +29,7 @@ main (void)
   println;
 
   numero = leerArreglo (arreglo, aleatorio (0, tamanno));
-  printf ("B[%i]:%p\n", numero, buscarArreglo (arreglo, tamanno, numero));
+  printf ("B[%i]:%i\n", numero, buscarArreglo (arreglo, tamanno, numero));
 
   for (i = 0; i < tamanno; i++)
     {

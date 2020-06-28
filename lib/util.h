@@ -7,6 +7,8 @@
 
 #define printtb printf( "\t" )
 
+#define printnull printf( "(nil)" );
+
 int aleatorio( int, int);
 
 #endif //_UTIL_H

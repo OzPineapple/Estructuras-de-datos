@@ -2,8 +2,8 @@
 COMPILER = gcc
 WD = $(shell realpath ./../../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
-LIBRARY = -L ./ -L $(WD)/lib -L $(WD)/Vectors/Array/Int
-RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Vectors/Array/Int
+LIBRARY = -L ./ -L $(WD)/lib -L $(WD)/Vectores/Arreglo/int
+RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Vectores/Arreglo/int
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
 CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
@@ -11,7 +11,8 @@ CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
-all: main.out 
+all: main.out
+	make delbk
 	./main.out
 
 main.out: main.o libvector.so
@@ -21,18 +22,15 @@ main.o: main.c Vector.h
 	$I $<
 	$(CP) -c $<
 
-libvector.so: libvector.c Vector.h
+libvector.so: Vector.c Vector.h
 	$I $<
-	$C -fPIC -shared -o $@ $< -lc -lvalidate -larray
+	$C -fPIC -shared -o $@ $< -lc -lvalidar -larreglo
 
 clean:
-	rm -f ./*.cbk
-	rm -f ./*.out
-	rm -f ./*.so 
-	rm -f ./*.o
+	rm -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o
 
 delbk:
-	rm ./*.cbk
+	rm -f ./*.cbk ./*.hbk
 
 debug: main.out
 	gdb ./$<

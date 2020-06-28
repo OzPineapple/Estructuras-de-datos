@@ -13,6 +13,6 @@ void insertarArreglo (int *arreglo, int posicion, int dato);
 
 void eliminarArreglo (int *arreglo, int posicion);
 
-int *buscarArreglo (int *arreglo, int tamanno, int dato);
+int buscarArreglo (int *arreglo, int tamanno, int dato);
 
 #endif //_ARREGLO_H
