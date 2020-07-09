@@ -15,6 +15,10 @@ all: main.out
 	make rmbk
 	./main.out
 
+build: main.out
+	make cleanbk
+	echo "\e[38;05;112;01mLibrerias del arreglo construidas correctamente\e[0m"
+
 main.out: main.o libarreglo.so
 	$C -o $@ $< -larreglo -lutil
 
@@ -29,7 +33,7 @@ libarreglo.so: Arreglo.c Arreglo.h
 clean:
 	rm -f ./*.so ./*.o ./*.out ./*.cbk ./*.hbk
 
-rmbk:
+cleanbk:
 	rm -f ./*.cbk ./*.hbk
 
 debug: main.out

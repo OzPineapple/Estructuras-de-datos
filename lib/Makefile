@@ -7,11 +7,12 @@ I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
 all: main.out
-	make clean_bk
+	make cleanbk
 	./main.out
 
-dev: main.out
-	./main.out
+build: main.out
+	make cleanbk
+	echo "\e[38;05;112;01mLibrerias del proyecto construidas correctamente\e[0m"
 
 main.out: main.o libutil.so libvalidar.so	
 	$C -o $@ $^ -Wl,-rpath=./
@@ -31,5 +32,5 @@ libutil.so: util.c util.h
 clean:
 	rm -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o
 
-clean_bk:
+cleanbk:
 	rm -f ./*.cbk ./*.hbk ./*.o

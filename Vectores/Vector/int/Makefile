@@ -15,6 +15,10 @@ all: main.out
 	make delbk
 	./main.out
 
+build: main.out
+	make cleanbk
+	echo "\e[38;05;112;01mLibrerias del vector construidas correctamente\e[0m"
+
 main.out: main.o libvector.so
 	$C -o $@ $< -lvector -lutil
 
@@ -29,7 +33,7 @@ libvector.so: Vector.c Vector.h
 clean:
 	rm -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o
 
-delbk:
+cleanbk:
 	rm -f ./*.cbk ./*.hbk
 
 debug: main.out
