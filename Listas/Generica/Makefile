@@ -11,11 +11,18 @@ CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
+.SILENT:
+
 all: main.out 
+	make cleanbk
 	./main.out
+
+build: main.out
+	make cleanbk
 
 main.out: main.o liblist.so libnode.so
 	$C -o $@ $< -lutil -llist -lnode
+	echo "[ \e[92m✓\e[0m ] $@"
 
 main.o: main.c List.h Node.h
 	$I $^
@@ -24,21 +31,18 @@ main.o: main.c List.h Node.h
 liblist.so: liblist.c List.h Node.h libnode.so
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc -lvalidate -lnode
+	echo "[ \e[92m✓\e[0m ] $@"
 
 libnode.so: libnode.c Node.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc -lvalidate
+	echo "[ \e[92m✓\e[0m ] $@"
 
 clean:
-	rm -f ./*.cbk
-	rm -f ./*.hbk
-	rm -f ./*.out
-	rm -f ./*.so 
-	rm -f ./*.o
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o  | tr -d "'" | sed "s/\.\//\[ \\\e\[91m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/")"
 
-delbk:
-	rm ./*.cbk
-	rm ./*.hbk
+cleanbk: 
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.o | tr -d "'" | sed "s/\.\//\[ \\\e\[93m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/")"
 
 debug: main.out
 	gdb ./$<

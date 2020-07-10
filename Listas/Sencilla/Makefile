@@ -14,6 +14,10 @@ I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 all: main.out 
 	./main.out
 
+build: main.out
+	make cleanbk
+	echo "\e[38;05;112;01mLibrerias de la lista sencilla construidas correctamente\e[0m"
+
 main.out: main.o liblistsimple.so
 	$C -o $@ $< -lutil -llistsimple -llist -lnode
 

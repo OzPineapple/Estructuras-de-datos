@@ -1,22 +1,31 @@
-#make -C Lists/Generic/
-	#make -C Lists/Simple/
-	#make -C Lists/Double/
-	#make -C Lists/Cyclic/
-	#make -C Lists/Double\ Cyclic/
-	#make -C Stacks/Array/
-	#make -C Stacks/List/
-	#make -C Stacks/Hanoi/
-	#make -C Queues/Array/
-	#make -C Queues/List/
+DIRS = lib/ \
+Vectores/Arreglo/int \
+Vectores/Vector/int/ \
+Listas/Generica/ \
+Listas/Sencilla/ \
+Listas/Doble/ \
+Listas/Ciclica/ \
+Listas/Doble\ Ciclica/ \
+Pilas/Arreglo/ \
+Pilas/Lista/ \
+Pilas/Hanoi/ \
+Colas/Arreglo/ \
+Colas/Lista/
+
+.SILENT:
 
 all: build
 
 build:
-	make -s build -C lib/
-	make -s build -C Vectores/Arreglo/int
-	make -s build -C Vectores/Vector/int/
+	for dir in ${DIRS} ; do \
+		echo $$dir; \
+		make build -C $$dir; \
+		echo ; \
+	done
 
 clean:
-	make -s clean -C lib/ 
-	make -s clean -C Vectores/Arreglo/int/ 
-	make -s clean -C Vectores/Vector/int/ 
+	for dir in ${DIRS} ; do \
+		echo $$dir; \
+		make clean -C $$dir; \
+		echo ; \
+	done
