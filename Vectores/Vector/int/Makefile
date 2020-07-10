@@ -17,10 +17,10 @@ all: main.out
 
 build: main.out
 	make cleanbk
-	echo "\e[38;05;112;01mLibrerias del vector construidas correctamente\e[0m"
 
 main.out: main.o libvector.so
 	$C -o $@ $< -lvector -lutil
+	echo "[ \e[92m✓\e[0m ] $@"
 
 main.o: main.c Vector.h
 	$I $<
@@ -29,12 +29,13 @@ main.o: main.c Vector.h
 libvector.so: Vector.c Vector.h
 	$I $<
 	$C -fPIC -shared -o $@ $< -lc -lvalidar -larreglo
+	echo "[ \e[92m✓\e[0m ] $@"
 
 clean:
-	rm -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o  | tr -d "'" | sed "s/\.\//\[ \\\e\[91m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/;$$ a \\\\\n")"
 
-cleanbk:
-	rm -f ./*.cbk ./*.hbk
+cleanbk: 
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.o | tr -d "'" | sed "s/\.\//\[ \\\e\[93m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/;$$ a \\\\\n")"
 
 debug: main.out
 	gdb ./$<

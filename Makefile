@@ -12,11 +12,11 @@
 all: build
 
 build:
-	make build -C lib/
-	make build -C Vectores/Arreglo/int
-	make build -C Vectores/Vector/int/
+	make -s build -C lib/
+	make -s build -C Vectores/Arreglo/int
+	make -s build -C Vectores/Vector/int/
 
 clean:
-	make clean -C lib/ 
-	make clean -C Vectores/Arreglo/int/ 
-	make clean -C Vectores/Vector/int/ 
+	make -s clean -C lib/ 
+	make -s clean -C Vectores/Arreglo/int/ 
+	make -s clean -C Vectores/Vector/int/ 
