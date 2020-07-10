@@ -2,15 +2,15 @@ DIRS = lib/ \
 Vectores/Arreglo/int \
 Vectores/Vector/int/ \
 Listas/Generica/ \
-Listas/Sencilla/ \
-Listas/Doble/ \
-Listas/Ciclica/ \
-Listas/Doble\ Ciclica/ \
-Pilas/Arreglo/ \
-Pilas/Lista/ \
-Pilas/Hanoi/ \
-Colas/Arreglo/ \
-Colas/Lista/
+# Listas/Sencilla/ \
+# Listas/Doble/ \
+# Listas/Ciclica/ \
+# Listas/Doble\ Ciclica/ \
+# Pilas/Arreglo/ \
+# Pilas/Lista/ \
+# Pilas/Hanoi/ \
+# Colas/Arreglo/ \
+# Colas/Lista/
 
 .SILENT:
 

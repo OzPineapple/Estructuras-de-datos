@@ -13,9 +13,7 @@ I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 # SCRPITS
 .SILENT:
 
-all: main.out
-	make rmbk
-	./main.out
+all: build
 
 build: main.out
 	make cleanbk
