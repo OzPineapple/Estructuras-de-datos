@@ -144,11 +144,8 @@ eliminarNodo (Nodo * nodo, int posicion, int camino)
   if (nodo == NULL)
     return NULL;
   atras = obtenerNodo (nodo, posicion - 1, camino);
-  printf ("%p\t%i\n", atras, posicion - 1);
   medio = obtenerNodo (nodo, posicion, camino);
-  printf ("%p\t%i\n", medio, posicion);
   frente = obtenerNodo (nodo, posicion + 1, camino);
-  printf ("%p\t%i\n", frente, posicion + 1);
   enlazarNodo (atras, frente, camino);
   enlazarNodo (medio, NULL, camino);
   return medio;
