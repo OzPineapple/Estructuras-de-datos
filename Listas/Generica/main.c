@@ -1,174 +1,83 @@
+#include "Nodo.h"
+#include "Lista.h"
+#include <lib/util.h>
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <lib/util.h>
-#include "Node.h"
-#include "List.h"
+
+void probarNodo (void);
+void probarLista (void);
 
 int
 main (void)
 {
   srand (time (NULL));
-  printf ("\nTest Node.h funtions\n");
-  Node_t *node = 0x0;
-  initNodePointer (&node, randomInRange (-100, 100), randomInRange (1, 20));
-  printNode (node);
-  changeNodeValue (node, randomInRange (-100, 100));
-  printNode (node);
-  deleteNodeValue (node);
-  printNode (node);
-  Node_t *node_1 = 0x0;
-  initNodePointer (&node_1, randomInRange (-100, 100), randomInRange (1, 20));
-  printNode (node_1);
-  Node_t *node_2 = 0x0;
-  initNodePointer (&node_2, randomInRange (-100, 100), randomInRange (1, 20));
-  printNode (node_2);
-  writeOnNodeWay (node, randomInRange (0, node->length - 1), node_1);
-  printNode (node);
-  writeOnNodeWay (node, randomInRange (0, node->length - 1), node_2);
-  printNode (node);
-  for (int i = 0; i < 3; i++)
-    {
-      resizeNodeWay (node, randomInRange (1, 20));
-      printNode (node);
-    }
+  probarNodo ();
+  probarLista ();
+  return 0;
+}
 
-  printf ("\nTest List.h funtions\n");
+void
+probarNodo (void)
+{
+  Nodo *nodo = NULL;
+  Nodo *nodo2 = NULL;
+  nodo = nuevoNodo (aleatorio (-100, 100), aleatorio (1, 5));
+  nodo2 = nuevoNodo (aleatorio (-100, 100), aleatorio (1, 5));
+  mostrarNodo (nodo);
+  println;
+  mostrarNodo (nodo2);
+  println;
+  enlazarNodo (nodo, nodo2, 0);
+  enlazarNodo (nodo2, nodo, 0);
+  mostrarNodo (nodo);
+  println;
+  mostrarNodo (nodo2);
+  println;
+  nodo = destruirNodo (nodo);
+  nodo2 = destruirNodo (nodo2);
+  mostrarNodo (nodo);
+  println;
+  mostrarNodo (nodo2);
+  println;
+}
 
-  linkNode (0, node_1, node_2);
-  printNodes (2, node_1, node_2);
-
-  linkNodes (0, 3, node, node_1, node_2);
-  printNodes (3, node, node_1, node_2);
-
-  printList (0, node);
-
-  linkNode (0, node_2, node);
-  printList (0, node);
-
-  unlinkNode (0, node);
-  unlinkNode (0, node_1);
-  unlinkNode (0, node_2);
-
-  printList (0, node);
-  printList (0, node_1);
-  printList (0, node_2);
-
-  Node_t *list = newList (randomInRange (1, 10), randomInRange (1, 5));
-  printList (0, list);
-
-  printf ("\nList - insert append\n");
-  listInsert (0, &list, node_1);
-  listAppend (0, list, node_2);
-  printList (0, list);
-
-  printf ("\nList - pop\n");
-  printList (0, list);
-  Node_t *popped_first = popFirstNodeOnListNlink (0, &list);
-  printNode (node_1);
-  printNode (popped_first);
-
-  printList (0, list);
-  Node_t *popped_last = popLastNodeOnListNlink (0, list);
-  printNode (node_2);
-  printNode (popped_last);
-
-  printf ("\nDestroy nodes\n");
-  destroyNode (node);
-  destroyNode (node_1);
-  destroyNode (node_2);
-
-  node = 0x0;
-  node_1 = 0x0;
-  node_2 = 0x0;
-  popped_first = 0x0;
-  popped_last = 0x0;
-
-  printf ("\nList - listpp\n");
-  Node_t *aux = list;
-  printList (0, aux);
-  for (size_t index = 0; index < 3; index += 1)
-    {
-      if (aux == 0x0)
-	{
-	  break;
-	}
-      listpp (0, &aux);
-      printList (0, aux);
-    }
-
-  printf ("\nList - write ramdomly\n");
-  printList (0, list);
-  if (list != 0x0)
-    for (size_t index = 0; index < 3; index += 1)
-      {
-	writeOnList (0, list, randomInRange (0, lengthOfList (0, list) - 1),
-		     randomInRange (-100, 100));
-      }
-  printList (0, list);
-
-  printf ("\nList - read randomly\n");
-  for (size_t index = 0; index < 3; index += 1)
-    {
-      printf ("[%i]",
-	      readOnList (0, list,
-			  randomInRange (0, lengthOfList (0, list) - 1)));
-    }
-  printf ("\n");
-
-  printf ("\nList.h - Cut List\n");
-
-  printList (0, list);
-
-  Node_t *list_1 =
-    cutList (0, list, randomInRange (0, lengthOfList (0, list) - 1));
-
-  printList (0, list);
-  printList (0, list_1);
-
-  printf ("Destroy list_1\n");
-  if (list_1 != list)
-    {
-      printList (0, list_1);
-      destroyList (0, list_1);
-    }
-
-  printf ("\nList.h - getNextNodeOnList\n");
-  printList (0, list);
-  Node_t *next = list;
-
-  while (next != 0x0)
-    {
-      printNode (next);
-      next = getNextNodeOnList (0, next);
-    }
-
-  printf ("\nList.h - Destroy node\n");
-
-  printf ("Destroy node - first node\n");
-  printList (0, list);
-  if (list != 0x0)
-    destroyNodeOnListNlink (0, &list, 0);
-  printList (0, list);
-
-  printf ("Destroy node - last node\n");
-  printList (0, list);
-  if (list != 0x0)
-    destroyNodeOnListNlink (0, &list, lengthOfList (0, list) - 1);
-  printList (0, list);
-
-  printf ("Destroy node - random node\n");
-  printList (0, list);
-  if (list != 0x0)
-    destroyNodeOnListNlink (0, &list,
-			    randomInRange (0, lengthOfList (0, list) - 1));
-  printList (0, list);
-
-  printf ("\nList.h - Destroy list\n");
-
-  printf ("Destroy list\n");
-  printList (0, list);
-  destroyList (0, list);
-
-
+void
+probarLista (void)
+{
+  Nodo *lista = NULL;
+  Nodo *nodo = NULL;
+  int camino = 0;
+  int tamanno = 0;
+  int posicion = 0;
+  camino = aleatorio (0, 5);
+  tamanno = aleatorio (1, 10);
+  lista = crearNodos (tamanno, camino + 1, camino);
+  mostrarNodos (lista, camino);
+  println;
+  nodo = siguienteNodo (lista, camino);
+  mostrarNodo (nodo);
+  println;
+  nodo = obtenerNodo (lista, aleatorio (0, tamanno - 1), camino);
+  mostrarNodo (nodo);
+  println;
+  posicion = aleatorio (0, tamanno - 1);
+  nodo = lista;
+  if (posicion == 0)
+    lista = siguienteNodo (lista, camino);
+  nodo = eliminarNodo (nodo, posicion, camino);
+  mostrarNodo (nodo);
+  println;
+  destruirNodo (nodo);
+  mostrarNodos (lista, camino);
+  println;
+  nodo = ultimoNodo (lista, camino);
+  mostrarNodo (nodo);
+  println;
+  enlazarNodo (nodo, lista, camino);
+  mostrarNodos (lista, camino);
+  println;
+  lista = destruirNodos (lista, 0);
+  mostrarNodos (lista, camino);
+  println;
 }

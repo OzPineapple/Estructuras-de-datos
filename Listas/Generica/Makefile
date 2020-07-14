@@ -10,32 +10,30 @@ CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
-# SCRPITS
 .SILENT:
 
-all: main.out 
-	make cleanbk
-	./main.out
+# SCRPITS
+all: build
 
 build: main.out
 	make cleanbk
 
-main.out: main.o liblist.so libnode.so
-	$C -o $@ $< -lutil -llist -lnode
+main.out: main.o libnodo.so liblista.so
+	$C -o $@ $< -lutil -lnodo -llista
 	echo "[ \e[92m✓\e[0m ] $@"
 
-main.o: main.c List.h Node.h
+main.o: main.c Nodo.h
 	$I $^
 	$(CP) -c $<
 
-liblist.so: liblist.c List.h Node.h libnode.so
+libnodo.so: Nodo.c Nodo.h
 	$I $<
-	$C -fPIC -shared -o $@ $< -lc -lvalidate -lnode
+	$C -fPIC -shared -o $@ $< -lc -lvalidar
 	echo "[ \e[92m✓\e[0m ] $@"
 
-libnode.so: libnode.c Node.h
+liblista.so: Lista.c Lista.h Nodo.h
 	$I $<
-	$C -fPIC -shared -o $@ $< -lc -lvalidate
+	$C -fPIC -shared -o $@ $< -lc -lvalidar -lnodo
 	echo "[ \e[92m✓\e[0m ] $@"
 
 clean:
