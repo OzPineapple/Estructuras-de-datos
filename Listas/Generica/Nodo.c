@@ -1,4 +1,4 @@
-#include "Nodo.h"
+#include <Listas/Generica/Nodo.h>
 #include <lib/validar.h>
 #include <stdlib.h>
 #include <stdio.h>

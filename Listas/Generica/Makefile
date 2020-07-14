@@ -2,8 +2,8 @@
 COMPILER = gcc
 WD = $(shell realpath ./../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
-LIBRARY = -L ./ -L $(WD)/lib
-RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/lib
+LIBRARY = -L $(WD)/Listas/Generica -L $(WD)/lib
+RPATH = -Wl,-rpath $(WD)/Listas/Generica -Wl,-rpath $(WD)/lib
 FLAGS = -std=c99 -Wall -g3 $(INCLUDE) $(LIBRARY) $(RPATH)
 C = $(COMPILER) $(FLAGS)
 CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3

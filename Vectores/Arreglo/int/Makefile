@@ -2,8 +2,8 @@
 COMPILER = gcc
 WD = $(shell realpath ./../../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
-LIBRARY = -L ./ -L $(WD)/lib
-RPATH = -Wl,-rpath $(WD)/lib -Wl,-rpath ./
+LIBRARY = -L $(WD)/lib -L $(WD)/Vectores/Arreglo/int
+RPATH = -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Vectores/Arreglo/int
 FLAGS = -std=c99 -Wall -g3 $(LIBRARY) $(INCLUDE) $(RPATH)
 C = $(COMPILER) $(FLAGS)
 CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3

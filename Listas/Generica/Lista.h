@@ -1,4 +1,4 @@
-#include "Nodo.h"
+#include <Listas/Generica/Nodo.h>
 
 #ifndef _LISTA_H
 #define _LISTA_H

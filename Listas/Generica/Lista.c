@@ -1,5 +1,5 @@
-#include "Lista.h"
-#include "Nodo.h"
+#include <Listas/Generica/Lista.h>
+#include <Listas/Generica/Nodo.h>
 #include <lib/validar.h>
 #include <stddef.h>
 #include <stdio.h>

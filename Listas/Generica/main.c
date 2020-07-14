@@ -1,5 +1,5 @@
-#include "Nodo.h"
-#include "Lista.h"
+#include <Listas/Generica/Nodo.h>
+#include <Listas/Generica/Lista.h>
 #include <lib/util.h>
 #include <time.h>
 #include <stdio.h>
