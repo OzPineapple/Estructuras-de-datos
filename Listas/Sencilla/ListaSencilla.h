@@ -1,23 +1,18 @@
-#include <Listas/Generica/Nodo.h>
+#include <Listas/Generica/Lista.h>
 
 #ifndef _LISTSIMPLE_H
 #define _LISTSIMPLE_H
 
-typedef struct ListaSencilla_s
-{
-  Nodo *nodo;
-} ListaSencilla;
+Lista *nuevaListaSencilla (int);
 
-ListaSencilla *nuevaListaSencilla (int);
+Lista *destruirListaSencilla (Lista *);
 
-ListaSencilla *destruirListaSencilla (ListaSencilla *);
+void mostarListaSencilla (Lista *);
 
-void mostarListaSencilla (ListaSencilla *);
+void insertarListaSencilla (Lista *, int, int);
 
-void insertarListaSencilla (ListaSencilla *, int, int);
+void eliminarListaSencilla (Lista *, int);
 
-void eliminarListaSencilla (ListaSencilla *, int);
-
-int buscarListaSencilla (ListaSencilla *, int);
+int buscarListaSencilla (Lista *, int);
 
 #endif //_LISTSIMPLE_H

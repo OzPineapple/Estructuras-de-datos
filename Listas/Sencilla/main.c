@@ -9,7 +9,7 @@ main (int argc, char *argv[])
 {
   int tamanno = 0;
   int valor = 0;
-  ListaSencilla *lista = NULL;
+  Lista *lista = NULL;
   srand (getpid ());
   tamanno = aleatorio (1, 10);
   lista = nuevaListaSencilla (tamanno);

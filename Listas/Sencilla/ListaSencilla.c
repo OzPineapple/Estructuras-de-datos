@@ -5,53 +5,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-ListaSencilla *
+Lista *
 nuevaListaSencilla (int tamanno)
 {
-  Nodo *nodo = NULL;
-  ListaSencilla *lista = NULL;
+  Lista *lista = NULL;
   valTam (tamanno);
-  nodo = crearNodos (tamanno, 1, 0);
-  valMem (nodo);
-  lista = (ListaSencilla *) calloc (1, sizeof (ListaSencilla));
-  lista->nodo = nodo;
+  lista = crearNodos (tamanno, 1, 0);
+  valMem (lista);
   return lista;
 }
 
-ListaSencilla *
-destruirListaSencilla (ListaSencilla * lista)
+Lista *
+destruirListaSencilla (Lista * lista)
 {
   if (lista == NULL)
     return NULL;
-  destruirNodos (lista->nodo, 0);
-  free (lista);
+  lista = destruirNodos (lista, 0);
   return NULL;
 }
 
 void
-mostarListaSencilla (ListaSencilla * lista)
+mostarListaSencilla (Lista * lista)
 {
   if (lista == NULL)
     {
       printf ("(nil)");
       return;
     }
-  mostrarNodos (lista->nodo, 0);
+  mostrarNodos (lista, 0);
 }
 
 void
-insertarListaSencilla (ListaSencilla * lista, int posicion, int valor)
+insertarListaSencilla (Lista * lista, int posicion, int valor)
 {
   Nodo *nodo = NULL;
   if (lista == NULL)
     return;
   valNeg (posicion);
-  nodo = obtenerNodo (lista->nodo, posicion, 0);
+  nodo = obtenerNodo (lista, posicion, 0);
   insertarNodo (nodo, valor);
 }
 
 void
-eliminarListaSencilla (ListaSencilla * lista, int posicion)
+eliminarListaSencilla (Lista * lista, int posicion)
 {
   Nodo *nodo = NULL;
   Nodo *siguiente = NULL;
@@ -63,12 +59,12 @@ eliminarListaSencilla (ListaSencilla * lista, int posicion)
       siguiente = siguienteNodo (nodo, 0);
       lista->nodo = siguiente;
     }
-  nodo = eliminarNodo (nodo, posicion, 0);
+  nodo = eliminarNodo (lista, posicion, 0);
   destruirNodo (nodo);
 }
 
 int
-buscarListaSencilla (ListaSencilla * lista, int valor)
+buscarListaSencilla (Lista * lista, int valor)
 {
   int pos = 0;
   Nodo *siguiente = NULL;

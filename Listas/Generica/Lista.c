@@ -45,6 +45,7 @@ destruirNodos (Lista * lista, int camino)
       destruirNodo (nodo);
       nodo = siguiente;
     }
+  free (lista);
   return NULL;
 }
 
