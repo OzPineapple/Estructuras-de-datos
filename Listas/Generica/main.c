@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void probarNodo (void);
 void probarLista (void);
@@ -11,7 +12,7 @@ void probarLista (void);
 int
 main (void)
 {
-  srand (time (NULL));
+  srand (getpid ());
   probarNodo ();
   probarLista ();
   return 0;
@@ -48,29 +49,54 @@ probarLista (void)
   Lista *lista = NULL;
   Nodo *nodo = NULL;
   int camino = 0;
-  int tamanno = 0;
-  int posicion = 0;
   camino = aleatorio (0, 5);
-  tamanno = aleatorio (1, 10);
-  lista = crearNodos (tamanno, camino + 1, camino);
+  lista = crearNodos (aleatorio (1, 10), camino + 1, camino);
   mostrarNodos (lista, camino);
   println;
-  nodo = obtenerNodo (lista, aleatorio (0, tamanno - 1), camino);
+
+  nodo = ultimoNodo (lista, camino);
+  enlazarNodo (nodo, lista->nodo, camino);
+
+  //TODO
+  int tamanno = tamannoNodos (lista, camino);
+  printf ("\n%i\t", tamanno);
+  nodo = nuevoNodo (aleatorio (-100, 100), 6);
   mostrarNodo (nodo);
   println;
-  posicion = aleatorio (0, tamanno - 1);
-  nodo = eliminarNodo (lista, posicion, camino);
+  annadirNodo (lista, nodo, 0, camino);
+  mostrarNodos (lista, camino);
+  println;
+  tamanno = tamannoNodos (lista, camino);
+  printf ("\n%i\n\n", tamanno);
+
+  //TODO
+  tamanno = tamannoNodos (lista, camino);
+  printf ("\n%i\t", tamanno);
+  nodo = nuevoNodo (aleatorio (-100, 100), 6);
+  mostrarNodo (nodo);
+  println;
+  annadirNodo (lista, nodo, tamanno, camino);
+  mostrarNodos (lista, camino);
+  println;
+  tamanno = tamannoNodos (lista, camino);
+  printf ("\n%i\n\n", tamanno);
+
+  //TODO
+  nodo = eliminarNodo (lista, 0, camino);
   mostrarNodo (nodo);
   println;
   destruirNodo (nodo);
   mostrarNodos (lista, camino);
   println;
-  nodo = ultimoNodo (lista, camino);
+
+  //TODO
+  nodo = eliminarNodo (lista, tamannoNodos (lista, camino) - 1, camino);
   mostrarNodo (nodo);
   println;
-  enlazarNodo (nodo, lista->nodo, camino);
+  destruirNodo (nodo);
   mostrarNodos (lista, camino);
   println;
+
   lista = destruirNodos (lista, 0);
   mostrarNodos (lista, camino);
   println;
