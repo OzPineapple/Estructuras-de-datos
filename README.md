@@ -14,11 +14,13 @@ Estructuras en repositorio:
     - [x] Leer
     - [x] Buscar
     - [x] Destruir
-- [ ] Listas ligadas sencillas.
-    - [ ] Insertar
-    - [ ] Eliminar
-    - [ ] Mostrar
-    - [ ] Buscar
+- [x] Listas ligadas sencillas.
+    - [x] Crear
+    - [x] Insertar
+    - [x] Eliminar
+    - [x] Mostrar
+    - [x] Buscar
+    - [x] Destruir
 - [ ] Listas ligadas dobles.
     - [ ] Insertar
     - [ ] Eliminar

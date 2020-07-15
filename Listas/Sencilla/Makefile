@@ -2,8 +2,8 @@
 COMPILER = gcc
 WD = $(shell realpath ./../../ | sed 's/ /\\ /g')
 INCLUDE = -I $(WD)
-LIBRARY = -L ./ -L $(WD)/Lists/Generic -L $(WD)/lib
-RPATH = -Wl,-rpath ./ -Wl,-rpath $(WD)/Lists/Generic -Wl,-rpath $(WD)/lib
+LIBRARY = -L $(WD)/lib -L $(WD)/Listas/Generica -L $(WD)/Listas/Sencilla
+RPATH = -Wl,-rpath $(WD)/lib -Wl,-rpath $(WD)/Listas/Generica -Wl,-rpath $(WD)/Listas/Sencilla
 FLAGS = -std=c99 -Wall -g3 $(INCLUDE) $(LIBRARY) $(RPATH)
 C = $(COMPILER) $(FLAGS)
 CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
@@ -11,34 +11,31 @@ CP = $(COMPILER) $(INCLUDE) -std=c99 -Wall -g3
 I = export SIMPLE_BACKUP_SUFFIX=bk; indent -gnu
 
 # SCRPITS
-all: main.out 
-	./main.out
+.SILENT:
+
+all: build
 
 build: main.out
 	make cleanbk
-	echo "\e[38;05;112;01mLibrerias de la lista sencilla construidas correctamente\e[0m"
 
-main.out: main.o liblistsimple.so
-	$C -o $@ $< -lutil -llistsimple -llist -lnode
+main.out: main.o liblistasencilla.so
+	$C -o $@ $< -lutil -llistasencilla
+	echo "[ \e[92m✓\e[0m ] $@"
 
-main.o: main.c ListSimple.h
+main.o: main.c ListaSencilla.h
 	$I $^
 	$(CP) -c $<
 
-liblistsimple.so: liblistsimple.c ListSimple.h
+liblistasencilla.so: ListaSencilla.c ListaSencilla.h
 	$I $<
-	$C -fPIC -shared -lc -lvalidate -llist -o $@ $<
+	$C -fPIC -shared -o $@ $< -lc -lvalidar -llista -lnodo
+	echo "[ \e[92m✓\e[0m ] $@"
 
 clean:
-	rm -f ./*.cbk
-	rm -f ./*.hbk
-	rm -f ./*.out
-	rm -f ./*.so 
-	rm -f ./*.o
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.out ./*.so ./*.o  | tr -d "'" | sed "s/\.\//\[ \\\e\[91m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/")"
 
-delbk:
-	rm ./*.cbk
-	rm ./*.hbk
+cleanbk: 
+	echo "$(shell rm -v -f ./*.cbk ./*.hbk ./*.o | tr -d "'" | sed "s/\.\//\[ \\\e\[93m✗\\\e\[0m \] /;2,$$ s/\[/\\\n\[/")"
 
 debug: main.out
 	gdb ./$<

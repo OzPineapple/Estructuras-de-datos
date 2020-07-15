@@ -2,7 +2,7 @@ DIRS = lib/ \
 Vectores/Arreglo/int \
 Vectores/Vector/int/ \
 Listas/Generica/ \
-# Listas/Sencilla/ \
+Listas/Sencilla/ \
 # Listas/Doble/ \
 # Listas/Ciclica/ \
 # Listas/Doble\ Ciclica/ \
