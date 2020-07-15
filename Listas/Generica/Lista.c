@@ -149,7 +149,7 @@ eliminarNodo (Lista * lista, int posicion, int camino)
   Nodo *atras = NULL;
   Nodo *medio = NULL;
   Nodo *frente = NULL;
-  if (lista == NULL )
+  if (lista == NULL)
     return NULL;
   atras = obtenerNodo (lista, posicion - 1, camino);
   medio = obtenerNodo (lista, posicion, camino);

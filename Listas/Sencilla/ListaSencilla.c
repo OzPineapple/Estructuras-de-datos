@@ -42,8 +42,8 @@ insertarListaSencilla (Lista * lista, int posicion, int valor)
   if (lista == NULL)
     return;
   valNeg (posicion);
-  nodo = obtenerNodo (lista, posicion, 0);
-  insertarNodo (nodo, valor);
+  nodo = nuevoNodo (valor, 1);
+  annadirNodo (lista, nodo, posicion, 0);
 }
 
 void
