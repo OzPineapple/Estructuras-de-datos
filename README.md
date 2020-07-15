@@ -27,10 +27,12 @@ Estructuras en repositorio:
     - [ ] Mostrar
     - [ ] Buscar
 - [ ] Listas ligadas, circulares.
-    - [ ] Insertar
-    - [ ] Eliminar
-    - [ ] Mostrar
-    - [ ] Buscar
+    - [x] Crear
+    - [x] Insertar
+    - [x] Eliminar
+    - [x] Mostrar
+    - [x] Buscar
+    - [x] Destruir
 - [ ] Listas ligadas, circulares dobles.
     - [ ] Insertar
     - [ ] Eliminar
