@@ -84,13 +84,13 @@ ultimoNodo (Lista * lista, int camino)
   if (lista == NULL)
     return NULL;
   valTamPos (lista->nodo->n_enlaces, camino);
-  nodo = lista->nodo;
-  siguiente = siguienteNodo (nodo, camino);
-  while (siguiente != NULL && siguiente != lista->nodo)
+  siguiente = lista->nodo;
+  do
     {
       nodo = siguiente;
       siguiente = siguienteNodo (nodo, camino);
     }
+  while (siguiente != NULL && siguiente != lista->nodo);
   return nodo;
 }
 
@@ -130,25 +130,16 @@ obtenerNodo (Lista * lista, int posicion, int camino)
   int i = 0;
   Nodo *nodo = NULL;
   Nodo *ultimo_s = NULL;
-  if (lista == NULL || lista->nodo == NULL)
-    return NULL;
-
   ultimo_s = siguienteNodo (ultimoNodo (lista, camino), camino);
-  if (posicion < 0 && ultimo_s != lista->nodo)
-    {
-      return NULL;
-    }
-  else if (posicion < 0 && ultimo_s == lista->nodo)
-    {
-      posicion = posicion % tamannoNodos (lista, camino);
-    }
-
+  if (lista == NULL || (posicion < 0 && ultimo_s != lista->nodo))
+    return NULL;
   valTamPos (lista->nodo->n_enlaces, camino);
+  posicion =
+    (ultimo_s == lista->nodo) ? mod (posicion,
+				     tamannoNodos (lista, camino)) : posicion;
   nodo = lista->nodo;
   for (i = 0; i < posicion && nodo != NULL; i++)
-    {
-      nodo = siguienteNodo (nodo, camino);
-    }
+    nodo = siguienteNodo (nodo, camino);
   return nodo;
 }
 
@@ -158,23 +149,14 @@ eliminarNodo (Lista * lista, int posicion, int camino)
   Nodo *atras = NULL;
   Nodo *medio = NULL;
   Nodo *frente = NULL;
-  Nodo *ultimo = NULL;
-  if (lista == NULL || lista->nodo == NULL)
+  if (lista == NULL )
     return NULL;
   atras = obtenerNodo (lista, posicion - 1, camino);
   medio = obtenerNodo (lista, posicion, camino);
   frente = obtenerNodo (lista, posicion + 1, camino);
-  ultimo = ultimoNodo (lista, camino);
   enlazarNodo (atras, frente, camino);
   enlazarNodo (medio, NULL, camino);
-  if (medio == lista->nodo)
-    {
-      lista->nodo = frente;
-      if (siguienteNodo (ultimo, camino) == medio)
-	{
-	  enlazarNodo (ultimo, frente, camino);
-	}
-    }
+  lista->nodo = (posicion == 0) ? frente : lista->nodo;
   return medio;
 }
 
@@ -183,7 +165,7 @@ annadirNodo (Lista * lista, Nodo * nodo, int posicion, int camino)
 {
   Nodo *atras = NULL;
   Nodo *frente = NULL;
-  if (nodo == NULL)
+  if (nodo == NULL || lista == NULL)
     return;
   atras = obtenerNodo (lista, posicion - 1, camino);
   frente = obtenerNodo (lista, posicion, camino);

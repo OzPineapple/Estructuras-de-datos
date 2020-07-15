@@ -15,3 +15,10 @@ aleatorio (int lower, int upper)
     }
   return (rand () % (upper - lower + 1)) + lower;
 }
+
+int
+mod (int a, int b)
+{
+  int r = a % b;
+  return r < 0 ? r + b : r;
+}

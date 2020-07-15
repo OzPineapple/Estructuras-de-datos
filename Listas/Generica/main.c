@@ -49,54 +49,23 @@ probarLista (void)
   Lista *lista = NULL;
   Nodo *nodo = NULL;
   int camino = 0;
-  camino = aleatorio (0, 5);
-  lista = crearNodos (aleatorio (1, 10), camino + 1, camino);
-  mostrarNodos (lista, camino);
-  println;
-
+  camino = aleatorio (0, 2);
+  lista = crearNodos (aleatorio (1, 5), camino + 1, camino);
   nodo = ultimoNodo (lista, camino);
   enlazarNodo (nodo, lista->nodo, camino);
-
-  //TODO
-  int tamanno = tamannoNodos (lista, camino);
-  printf ("\n%i\t", tamanno);
-  nodo = nuevoNodo (aleatorio (-100, 100), 6);
-  mostrarNodo (nodo);
-  println;
-  annadirNodo (lista, nodo, 0, camino);
   mostrarNodos (lista, camino);
   println;
-  tamanno = tamannoNodos (lista, camino);
-  printf ("\n%i\n\n", tamanno);
-
-  //TODO
-  tamanno = tamannoNodos (lista, camino);
-  printf ("\n%i\t", tamanno);
-  nodo = nuevoNodo (aleatorio (-100, 100), 6);
-  mostrarNodo (nodo);
-  println;
-  annadirNodo (lista, nodo, tamanno, camino);
+  nodo = nuevoNodo (aleatorio (-100, 100), 4);
+  annadirNodo (lista, nodo, aleatorio (0, tamannoNodos (lista, camino) - 1),
+	       camino);
   mostrarNodos (lista, camino);
   println;
-  tamanno = tamannoNodos (lista, camino);
-  printf ("\n%i\n\n", tamanno);
-
-  //TODO
-  nodo = eliminarNodo (lista, 0, camino);
-  mostrarNodo (nodo);
-  println;
+  nodo =
+    eliminarNodo (lista, aleatorio (0, tamannoNodos (lista, camino) - 1),
+		  camino);
   destruirNodo (nodo);
   mostrarNodos (lista, camino);
   println;
-
-  //TODO
-  nodo = eliminarNodo (lista, tamannoNodos (lista, camino) - 1, camino);
-  mostrarNodo (nodo);
-  println;
-  destruirNodo (nodo);
-  mostrarNodos (lista, camino);
-  println;
-
   lista = destruirNodos (lista, 0);
   mostrarNodos (lista, camino);
   println;

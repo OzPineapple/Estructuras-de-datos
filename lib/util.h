@@ -11,4 +11,6 @@
 
 int aleatorio( int, int);
 
+int mod( int, int);
+
 #endif //_UTIL_H
