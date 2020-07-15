@@ -45,7 +45,7 @@ probarNodo (void)
 void
 probarLista (void)
 {
-  Nodo *lista = NULL;
+  Lista *lista = NULL;
   Nodo *nodo = NULL;
   int camino = 0;
   int tamanno = 0;
@@ -55,17 +55,11 @@ probarLista (void)
   lista = crearNodos (tamanno, camino + 1, camino);
   mostrarNodos (lista, camino);
   println;
-  nodo = siguienteNodo (lista, camino);
-  mostrarNodo (nodo);
-  println;
   nodo = obtenerNodo (lista, aleatorio (0, tamanno - 1), camino);
   mostrarNodo (nodo);
   println;
   posicion = aleatorio (0, tamanno - 1);
-  nodo = lista;
-  if (posicion == 0)
-    lista = siguienteNodo (lista, camino);
-  nodo = eliminarNodo (nodo, posicion, camino);
+  nodo = eliminarNodo (lista, posicion, camino);
   mostrarNodo (nodo);
   println;
   destruirNodo (nodo);
@@ -74,7 +68,7 @@ probarLista (void)
   nodo = ultimoNodo (lista, camino);
   mostrarNodo (nodo);
   println;
-  enlazarNodo (nodo, lista, camino);
+  enlazarNodo (nodo, lista->nodo, camino);
   mostrarNodos (lista, camino);
   println;
   lista = destruirNodos (lista, 0);
