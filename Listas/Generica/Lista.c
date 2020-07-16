@@ -5,29 +5,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+char *conextion_characther = "→";
+
 Lista *
 crearNodos (int tamanno, int n_enlaces, int camino)
 {
   int i = 0;
   Nodo *atras = NULL;
   Nodo *nodo = NULL;
-  Nodo *cabecera = NULL;
   Lista *lista = NULL;
   valTam (tamanno);
   valTam (n_enlaces);
   valNeg (camino);
-  cabecera = nuevoNodo (0, n_enlaces);
-  valMem (cabecera);
-  nodo = cabecera;
-  for (i = 0; i < tamanno; i++)
+  lista = (Lista *) calloc (1, sizeof (Lista));
+  valMem (lista);
+  lista->nodo = nuevoNodo (0, n_enlaces);
+  valMem (lista->nodo);
+  nodo = lista->nodo;
+  for (i = 1; i < tamanno; i++)
     {
       atras = nodo;
       nodo = nuevoNodo (0, n_enlaces);
       valMem (nodo);
       enlazarNodo (atras, nodo, camino);
     }
-  lista = (Lista *) calloc (1, sizeof (Lista));
-  lista->nodo = cabecera;
   return lista;
 }
 
@@ -65,7 +66,7 @@ mostrarNodos (Lista * lista, int camino)
   while (nodo != NULL)
     {
       mostrarNodo (nodo);
-      printf ("\e[93m→\e[0m");
+      printf ("\e[93m%s\e[0m", conextion_characther);
       if (siguiente == lista->nodo)
 	{
 	  printf ("\e[91m{\e[93m⥀\e[91m}\e[0m");
@@ -141,6 +142,27 @@ obtenerNodo (Lista * lista, int posicion, int camino)
   for (i = 0; i < posicion && nodo != NULL; i++)
     nodo = siguienteNodo (nodo, camino);
   return nodo;
+}
+
+int
+buscarNodos (Lista * lista, int valor, int camino)
+{
+  int pos = 0;
+  Nodo *siguiente = NULL;
+  Nodo *nodo = NULL;
+  if (lista == NULL)
+    return -1;
+  nodo = lista->nodo;
+  siguiente = siguienteNodo (nodo, camino);
+  while (siguiente != NULL && siguiente != lista->nodo)
+    {
+      if (nodo->valor == valor)
+	return pos;
+      nodo = siguiente;
+      siguiente = siguienteNodo (nodo, camino);
+      pos++;
+    }
+  return pos;
 }
 
 Nodo *

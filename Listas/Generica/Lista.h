@@ -10,6 +10,8 @@ struct Lista_s
 
 typedef struct Lista_s Lista;
 
+extern char * conextion_characther;
+
 Lista * crearNodos( int, int, int );
 
 Lista * destruirNodos( Lista *, int );
@@ -23,6 +25,8 @@ int tamannoNodos( Lista *, int);
 Nodo * siguienteNodo( Nodo *, int);
 
 Nodo * obtenerNodo( Lista *, int, int );
+
+int buscarNodos( Lista *, int, int );
 
 Nodo * eliminarNodo( Lista *, int, int);
 

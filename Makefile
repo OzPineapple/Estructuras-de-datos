@@ -4,7 +4,7 @@ Vectores/Vector/int/ \
 Listas/Generica/ \
 Listas/Sencilla/ \
 Listas/Ciclica/ \
-# Listas/Doble/ \
+Listas/Doble/ \
 # Listas/Doble\ Ciclica/ \
 # Pilas/Arreglo/ \
 # Pilas/Lista/ \

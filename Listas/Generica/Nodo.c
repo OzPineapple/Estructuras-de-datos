@@ -2,6 +2,7 @@
 #include <lib/validar.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <inttypes.h>
 
 Nodo *
 nuevoNodo (int valor, int n_enlaces)

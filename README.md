@@ -21,12 +21,14 @@ Estructuras en repositorio:
     - [x] Mostrar
     - [x] Buscar
     - [x] Destruir
-- [ ] Listas ligadas dobles.
-    - [ ] Insertar
-    - [ ] Eliminar
-    - [ ] Mostrar
-    - [ ] Buscar
-- [ ] Listas ligadas, circulares.
+- [x] Listas ligadas dobles.
+    - [x] Crear
+    - [x] Insertar
+    - [x] Eliminar
+    - [x] Mostrar
+    - [x] Buscar
+    - [x] Destruir
+- [x] Listas ligadas, circulares.
     - [x] Crear
     - [x] Insertar
     - [x] Eliminar
