@@ -66,20 +66,5 @@ eliminarListaSencilla (Lista * lista, int posicion)
 int
 buscarListaSencilla (Lista * lista, int valor)
 {
-  int pos = 0;
-  Nodo *siguiente = NULL;
-  Nodo *nodo = NULL;
-  if (lista == NULL)
-    return -1;
-  nodo = lista->nodo;
-  siguiente = siguienteNodo (nodo, 0);
-  while (siguiente != NULL && siguiente != lista->nodo)
-    {
-      if (nodo->valor == valor)
-	return pos;
-      nodo = siguiente;
-      siguiente = siguienteNodo (nodo, 0);
-      pos++;
-    }
-  return pos;
+  return buscarNodos (lista, valor, 0);
 }
